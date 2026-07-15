@@ -1,0 +1,32 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      APP_NAME: "Pasaman Dev"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: "${APP_KEY}"
+      APP_URL: "${APP_URL}"
+      STATAMIC_PRO_ENABLED: "false"
+      # Flat-file content lives on disk, so the file watcher is pointless in prod.
+      STATAMIC_STACHE_WATCHER: "false"
+      STATAMIC_STATIC_CACHING_STRATEGY: "null"
+      LOG_CHANNEL: stderr
+    volumes:
+      # Statamic stores everything as files. Without these volumes, every edit
+      # made in the Control Panel is lost on the next deploy.
+      - content:/var/www/html/content
+      - users:/var/www/html/users
+      - uploads:/var/www/html/public/assets
+      - storage:/var/www/html/storage
+
+volumes:
+  content:
+  users:
+  uploads:
+  storage:

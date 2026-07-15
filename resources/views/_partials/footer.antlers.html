@@ -1,0 +1,62 @@
+<footer class="pd-footer" id="footer">
+    <div class="pd-footer__grid">
+        <div class="pd-footer__about">
+            <div class="pd-footer__brand">
+                <span class="pd-brand__mark pd-brand__mark--sm">
+                    {{ if settings:logo }}
+                        <img src="{{ settings:logo:url }}" alt="{{ settings:site_name }}">
+                    {{ else }}
+                        {{ partial:_partials/roofline width="19" height="8" }}
+                    {{ /if }}
+                </span>
+                <span class="pd-brand__name">{{ partial:_partials/brand_name }}</span>
+            </div>
+            <p>{{ settings:tagline ?? settings:site_description }}</p>
+        </div>
+
+        <div>
+            <span class="pd-footer__title">NAVIGASI</span>
+            <div class="pd-footer__list">
+                <a href="/#about">Tentang Kami</a>
+                <a href="/project">Project</a>
+                <a href="/artikel">Blog</a>
+                <a href="/galeri">Galeri</a>
+                <a href="/#partner">Kerjasama</a>
+            </div>
+        </div>
+
+        <div>
+            <span class="pd-footer__title">KONTAK</span>
+            <div class="pd-footer__list">
+                {{ if settings:email }}
+                    <a href="mailto:{{ settings:email }}">{{ settings:email }}</a>
+                {{ /if }}
+                {{ if settings:phone }}
+                    <a href="tel:{{ settings:phone | replace(' ', '') }}">{{ settings:phone }}</a>
+                {{ /if }}
+                {{ if settings:address }}
+                    {{ if settings:maps_url }}
+                        <a href="{{ settings:maps_url }}" target="_blank" rel="noopener">{{ settings:address | nl2br }}</a>
+                    {{ else }}
+                        <span>{{ settings:address | nl2br }}</span>
+                    {{ /if }}
+                {{ /if }}
+            </div>
+        </div>
+
+        {{ if settings:socials }}
+            <div>
+                <span class="pd-footer__title">SOSIAL</span>
+                <div class="pd-socials">
+                    {{ settings:socials }}
+                        <a href="{{ url }}" title="{{ name }}" target="_blank" rel="noopener">{{ label }}</a>
+                    {{ /settings:socials }}
+                </div>
+            </div>
+        {{ /if }}
+    </div>
+
+    <div class="pd-footer__bottom">
+        <span>&copy; {{ now format="Y" }} {{ settings:copyright ?? settings:site_name }}</span>
+    </div>
+</footer>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="{{ site:short_locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ title | sanitize }}{{ if segment_1 }} · {{ settings:site_name }}{{ /if }}</title>
+    <meta name="description" content="{{ seo_description ?? excerpt ?? settings:site_description | striptags | sanitize }}">
+    <link rel="canonical" href="{{ permalink }}">
+
+    <meta property="og:title" content="{{ title | sanitize }}">
+    <meta property="og:description" content="{{ seo_description ?? excerpt ?? settings:site_description | striptags | sanitize }}">
+    <meta property="og:url" content="{{ permalink }}">
+    <meta property="og:site_name" content="{{ settings:site_name }}">
+    {{ if settings:og_image }}
+        <meta property="og:image" content="{{ settings:og_image:permalink }}">
+    {{ /if }}
+    <meta name="twitter:card" content="summary_large_image">
+
+    {{ if settings:favicon }}
+        <link rel="icon" href="{{ settings:favicon:url }}">
+    {{ /if }}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    {{ vite src="resources/js/site.js|resources/css/site.css" }}
+</head>
+<body>
+    <div class="pd-page">
+        <div class="pd-ambient pd-ambient--grid"></div>
+        <div class="pd-ambient pd-ambient--glow-green"></div>
+        <div class="pd-ambient pd-ambient--glow-orange"></div>
+
+        <div class="pd-content">
+            {{ partial:_partials/header }}
+
+            <main>
+                {{ template_content }}
+            </main>
+
+            {{ partial:_partials/footer }}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<section class="pd-section pd-section--page pd-page-in">
+    <a class="pd-back" href="/">&larr; Kembali ke Beranda</a>
+
+    {{ partial:_partials/eyebrow text="GALERI KEGIATAN" }}
+    <h1 class="pd-h1">{{ title }}</h1>
+    <p class="pd-lede">{{ intro }}</p>
+
+    {{ collection:gallery paginate="true" limit="12" as="photos" }}
+        <div class="pd-gallery pd-gallery--page">
+            {{ photos }}
+                {{ partial:_partials/gallery_item :delay="index * 0.05" }}
+            {{ /photos }}
+
+            {{ if no_results }}
+                <div class="pd-empty">Belum ada foto. Tambahkan lewat Control Panel.</div>
+            {{ /if }}
+        </div>
+
+        {{ paginate }}
+            {{ if total_pages > 1 }}
+                <nav class="pd-pagination">
+                    {{ if prev_page }}
+                        <a href="{{ prev_page }}">&larr;</a>
+                    {{ else }}
+                        <span class="is-disabled">&larr;</span>
+                    {{ /if }}
+
+                    {{ links:all }}
+                        {{ if page == current_page }}
+                            <span class="is-current">{{ page }}</span>
+                        {{ else }}
+                            <a href="{{ url }}">{{ page }}</a>
+                        {{ /if }}
+                    {{ /links:all }}
+
+                    {{ if next_page }}
+                        <a href="{{ next_page }}">&rarr;</a>
+                    {{ else }}
+                        <span class="is-disabled">&rarr;</span>
+                    {{ /if }}
+                </nav>
+            {{ /if }}
+        {{ /paginate }}
+    {{ /collection:gallery }}
+</section>

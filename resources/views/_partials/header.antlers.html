@@ -1,0 +1,29 @@
+<header class="pd-header">
+    <div class="pd-header__inner">
+        <a href="/" class="pd-brand">
+            <span class="pd-brand__mark">
+                {{ if settings:logo }}
+                    <img src="{{ settings:logo:url }}" alt="{{ settings:site_name }}">
+                {{ else }}
+                    {{ partial:_partials/roofline width="22" height="9" }}
+                {{ /if }}
+            </span>
+            <span class="pd-brand__name">{{ partial:_partials/brand_name }}</span>
+        </a>
+
+        <button class="pd-nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Buka menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M3 6h18M3 12h18M3 18h18"></path>
+            </svg>
+        </button>
+
+        <nav class="pd-nav" data-nav>
+            <a class="pd-nav__link" href="/#about">Tentang</a>
+            <a class="pd-nav__link" href="/project" {{ if segment_1 == 'project' }}aria-current="page"{{ /if }}>Project</a>
+            <a class="pd-nav__link" href="/artikel" {{ if segment_1 == 'artikel' }}aria-current="page"{{ /if }}>Blog</a>
+            <a class="pd-nav__link" href="/galeri" {{ if segment_1 == 'galeri' }}aria-current="page"{{ /if }}>Galeri</a>
+            <a class="pd-nav__link" href="/#partner">Kerjasama</a>
+            <a class="pd-btn pd-btn--primary pd-btn--nav" href="{{ settings:whatsapp_url ?? '/#join' }}">Gabung</a>
+        </nav>
+    </div>
+</header>

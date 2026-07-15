@@ -1,0 +1,73 @@
+title: Artikel
+tabs:
+  main:
+    display: Konten
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          display: 'Judul Artikel'
+          validate:
+            - required
+      -
+        handle: slug
+        field:
+          type: slug
+          display: Slug
+          from: title
+          generate: true
+          validate:
+            - required
+      -
+        handle: excerpt
+        field:
+          type: textarea
+          display: Ringkasan
+          instructions: 'Tampil di kartu artikel dan hasil pencarian.'
+          character_limit: 200
+          validate:
+            - required
+      -
+        handle: featured_image
+        field:
+          type: assets
+          display: 'Gambar Utama'
+          container: assets
+          folder: articles
+          max_files: 1
+          mode: grid
+      -
+        handle: content
+        field:
+          type: bard
+          display: 'Isi Artikel'
+          buttons: [bold, italic, unorderedlist, orderedlist, quote, anchor, h2, h3, image, code]
+          container: assets
+          save_html: false
+          validate:
+            - required
+  meta:
+    display: Detail
+    fields:
+      -
+        handle: categories
+        field:
+          type: terms
+          display: Kategori
+          taxonomies:
+            - categories
+          max_items: 1
+          create: true
+      -
+        handle: author_name
+        field:
+          type: text
+          display: Penulis
+          default: 'Tim Pasaman Dev'
+          instructions: 'Nama yang tampil di artikel.'
+      -
+        handle: featured
+        field:
+          type: toggle
+          display: 'Tampilkan di Halaman Depan'

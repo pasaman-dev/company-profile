@@ -1,0 +1,181 @@
+title: 'Halaman Depan'
+tabs:
+  hero:
+    display: Hero
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          display: Judul
+          validate:
+            - required
+      -
+        handle: hero_prefix
+        field:
+          type: text
+          display: 'Judul Hero (bagian awal)'
+          default: 'Ruang untuk'
+      -
+        handle: hero_words
+        field:
+          type: list
+          display: 'Kata Berganti'
+          instructions: 'Kata-kata yang bergantian beranimasi di hero. Satu baris per kata.'
+          add_button: 'Tambah Kata'
+      -
+        handle: hero_suffix
+        field:
+          type: text
+          display: 'Judul Hero (bagian akhir)'
+          default: 'di dunia teknologi'
+      -
+        handle: hero_description
+        field:
+          type: textarea
+          display: 'Deskripsi Hero'
+      -
+        handle: hero_primary_label
+        field:
+          type: text
+          display: 'Tombol Utama'
+          default: 'Gabung Komunitas'
+      -
+        handle: hero_secondary_label
+        field:
+          type: text
+          display: 'Tombol Kedua'
+          default: 'Lihat Project'
+      -
+        handle: marquee_words
+        field:
+          type: list
+          display: 'Kata Marquee'
+          instructions: 'Teks berjalan di bawah hero.'
+          add_button: 'Tambah Kata'
+  about:
+    display: Tentang
+    fields:
+      -
+        handle: about_heading
+        field:
+          type: text
+          display: 'Judul Section'
+      -
+        handle: pillars
+        field:
+          type: grid
+          display: 'Pilar Komunitas'
+          instructions: 'Kartu-kartu yang menjelaskan fokus komunitas.'
+          add_row: 'Tambah Pilar'
+          max_rows: 6
+          fields:
+            -
+              handle: title
+              field:
+                type: text
+                display: Judul
+                validate:
+                  - required
+            -
+              handle: description
+              field:
+                type: textarea
+                display: Deskripsi
+            -
+              handle: accent
+              field:
+                type: select
+                display: Warna
+                default: green
+                options:
+                  green: Hijau
+                  orange: Oranye
+  partner:
+    display: Kerjasama
+    fields:
+      -
+        handle: partner_heading
+        field:
+          type: text
+          display: 'Judul Section'
+      -
+        handle: partner_description
+        field:
+          type: textarea
+          display: Deskripsi
+      -
+        handle: partners
+        field:
+          type: grid
+          display: 'Jenis Kerjasama'
+          add_row: 'Tambah Jenis'
+          fields:
+            -
+              handle: label
+              field:
+                type: text
+                display: Kode
+                instructions: '2 huruf, contoh: CO'
+                character_limit: 3
+            -
+              handle: title
+              field:
+                type: text
+                display: Judul
+                validate:
+                  - required
+            -
+              handle: description
+              field:
+                type: textarea
+                display: Deskripsi
+            -
+              handle: accent
+              field:
+                type: select
+                display: Warna
+                default: green
+                options:
+                  green: Hijau
+                  orange: Oranye
+      -
+        handle: partner_logos
+        field:
+          type: assets
+          display: 'Logo Partner'
+          container: assets
+          folder: partners
+          mode: grid
+  cta:
+    display: 'CTA Gabung'
+    fields:
+      -
+        handle: cta_heading
+        field:
+          type: text
+          display: Judul
+      -
+        handle: cta_description
+        field:
+          type: textarea
+          display: Deskripsi
+      -
+        handle: cta_button_label
+        field:
+          type: text
+          display: 'Teks Tombol'
+  sidebar:
+    display: SEO
+    fields:
+      -
+        handle: seo_description
+        field:
+          type: textarea
+          display: 'Meta Description'
+          instructions: 'Kosongkan untuk memakai deskripsi dari Konfigurasi Web.'
+      -
+        handle: template
+        field:
+          type: template
+          display: Template

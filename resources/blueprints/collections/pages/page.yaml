@@ -1,0 +1,46 @@
+title: Halaman
+tabs:
+  main:
+    display: Konten
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          display: Judul
+          validate:
+            - required
+      -
+        handle: slug
+        field:
+          type: slug
+          display: Slug
+          from: title
+          generate: true
+      -
+        handle: intro
+        field:
+          type: textarea
+          display: 'Teks Pengantar'
+          instructions: 'Muncul di bawah judul halaman.'
+      -
+        handle: content
+        field:
+          type: bard
+          display: Konten
+          buttons: [bold, italic, unorderedlist, orderedlist, quote, anchor, h2, h3, image, code]
+          container: assets
+          save_html: false
+  sidebar:
+    display: SEO
+    fields:
+      -
+        handle: seo_description
+        field:
+          type: textarea
+          display: 'Meta Description'
+      -
+        handle: template
+        field:
+          type: template
+          display: Template

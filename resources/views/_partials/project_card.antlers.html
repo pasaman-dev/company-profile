@@ -1,0 +1,21 @@
+<a href="{{ url }}" class="pd-card pd-reveal" style="--reveal-delay: {{ delay ?? '0' }}s;">
+    <div class="pd-card__media">
+        {{ if cover }}
+            <img src="{{ cover:url }}" alt="{{ title }}" loading="lazy">
+        {{ else }}
+            <div class="pd-mesh"></div>
+            <span class="pd-media__label">&lt;/&gt; PROJECT</span>
+        {{ /if }}
+        {{ if project_status }}
+            <span class="pd-status">{{ project_status:label }}</span>
+        {{ /if }}
+    </div>
+    <div class="pd-card__body">
+        {{ project_types }}
+            <span class="pd-tag">{{ title }}</span>
+        {{ /project_types }}
+        <h3>{{ title }}</h3>
+        <p>{{ excerpt }}</p>
+        <span class="pd-card__more">Lihat detail &rarr;</span>
+    </div>
+</a>

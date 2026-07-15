@@ -1,0 +1,30 @@
+id: settings
+site_name: 'Pasaman Dev'
+logo: brand/logo.jpg
+brand_prefix: Pasaman
+brand_suffix: Dev
+tagline: 'Komunitas developer & talenta IT Pasaman'
+site_description: 'Pasaman Dev adalah wadah belajar, berkolaborasi, dan berkarya untuk talenta IT di Pasaman, Sumatera Barat.'
+email: halo@pasamandev.id
+phone: '+6281234567890'
+whatsapp_url: '#'
+address: 'Pasaman, Sumatera Barat'
+maps_url: ''
+socials:
+  -
+    name: Instagram
+    label: IG
+    url: '#'
+  -
+    name: 'Grup WhatsApp'
+    label: WA
+    url: '#'
+  -
+    name: GitHub
+    label: GH
+    url: '#'
+  -
+    name: LinkedIn
+    label: IN
+    url: '#'
+copyright: 'Pasaman Dev. Semua hak dilindungi.'
