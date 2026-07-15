@@ -1,4 +1,10 @@
 name: Gibranda
 super: true
 id: 51e23bd6-be33-46f4-bf2b-9378b17041b5
-password_hash: $2y$12$rGXVm9ZhkLwDNtnsoO3gBu997UjyS8IHfSozQD.5S0DcffHQAj5Uq
+password_hash: $2y$12$QiGNvVrClWl5QqUQfzQiVulQHxREIrOQvWsmtMBcE7m4DZp7MC.S6
+preferences:
+  collections:
+    projects:
+      view: list
+    pages:
+      view: tree

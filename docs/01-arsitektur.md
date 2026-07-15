@@ -9,7 +9,7 @@ Statamic adalah CMS yang menyimpan konten sebagai **file di disk** (YAML + Markd
 - **Backup mudah** — cukup salin folder `content/` dan `public/assets/`.
 - **Gratis** — fitur yang dipakai project ini tersedia di Statamic edisi Free.
 
-Kekurangan yang perlu disadari: karena konten adalah file, mengedit konten di produksi berarti mengubah file di server. Bab [05](05-konten-dan-git.md) menjelaskan cara mengelola ini dengan rapi.
+Kekurangan yang perlu disadari: karena konten adalah file, mengedit konten di produksi berarti mengubah file di server. Kebijakan project ini menanganinya dengan tegas — **konten hanya dikelola lewat Control Panel** dan gambar disimpan di Cloudflare R2. Lihat [05 — Kebijakan Operasional Konten](05-operasional-konten.md) dan [06 — Penyimpanan Gambar R2](06-penyimpanan-gambar-r2.md).
 
 ## Susunan folder
 

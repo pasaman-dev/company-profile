@@ -61,7 +61,39 @@ return [
             // 'visibility' => 'public', // https://statamic.dev/assets#container-visibility
         ],
 
-        'assets' => [
+        // Cloudflare R2 (S3-compatible object storage) for uploaded media.
+        'r2' => [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY_ID'),
+            'secret' => env('R2_SECRET_ACCESS_KEY'),
+            'region' => env('R2_DEFAULT_REGION', 'auto'),
+            'bucket' => env('R2_BUCKET'),
+            'endpoint' => env('R2_ENDPOINT'),
+            // R2 requires path-style; public URLs are served from R2_URL
+            // (an R2 public bucket URL or a custom domain in front of it).
+            'use_path_style_endpoint' => true,
+            'url' => env('R2_URL'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // Asset container disk. Uses Cloudflare R2 when R2_BUCKET is configured
+        // (production), and falls back to the local public folder otherwise
+        // (local development works with no cloud credentials).
+        'assets' => env('R2_BUCKET') ? [
+            'driver' => 's3',
+            'key' => env('R2_ACCESS_KEY_ID'),
+            'secret' => env('R2_SECRET_ACCESS_KEY'),
+            'region' => env('R2_DEFAULT_REGION', 'auto'),
+            'bucket' => env('R2_BUCKET'),
+            'endpoint' => env('R2_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+            'url' => env('R2_URL'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ] : [
             'driver' => 'local',
             'root' => public_path('assets'),
             'url' => '/assets',
