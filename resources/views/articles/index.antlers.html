@@ -1,0 +1,45 @@
+<section class="pd-section pd-section--page pd-page-in">
+    <a class="pd-back" href="/">&larr; Kembali ke Beranda</a>
+
+    {{ partial:_partials/eyebrow text="BLOG &amp; ARTIKEL" }}
+    <h1 class="pd-h1">{{ title }}</h1>
+    <p class="pd-lede">{{ intro }}</p>
+
+    {{ collection:articles paginate="true" limit="9" as="articles" }}
+        <div class="pd-grid">
+            {{ articles }}
+                {{ partial:_partials/article_card :delay="index * 0.06" }}
+            {{ /articles }}
+
+            {{ if no_results }}
+                <div class="pd-empty">Belum ada artikel. Tambahkan lewat Control Panel.</div>
+            {{ /if }}
+        </div>
+
+        {{ paginate }}
+            {{ if total_pages > 1 }}
+                <nav class="pd-pagination">
+                    {{ if prev_page }}
+                        <a href="{{ prev_page }}">&larr;</a>
+                    {{ else }}
+                        <span class="is-disabled">&larr;</span>
+                    {{ /if }}
+
+                    {{ links:all }}
+                        {{ if page == current_page }}
+                            <span class="is-current">{{ page }}</span>
+                        {{ else }}
+                            <a href="{{ url }}">{{ page }}</a>
+                        {{ /if }}
+                    {{ /links:all }}
+
+                    {{ if next_page }}
+                        <a href="{{ next_page }}">&rarr;</a>
+                    {{ else }}
+                        <span class="is-disabled">&rarr;</span>
+                    {{ /if }}
+                </nav>
+            {{ /if }}
+        {{ /paginate }}
+    {{ /collection:articles }}
+</section>

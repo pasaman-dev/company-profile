@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #060B0A; }
+  a { color: #33D6A6; text-decoration: none; }
+  a:hover { color: #FF8A3D; }
+  ::selection { background: rgba(51,214,166,0.28); color: #EDF4F1; }
+  @keyframes pdGrid { from { background-position: 0 0, 0 0; } to { background-position: 60px 60px, 60px 60px; } }
+  @keyframes pdDrift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.12); } }
+  @keyframes pdDrift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,30px) scale(1.15); } }
+  @keyframes pdFadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes pdPageIn { from { opacity:0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes pdMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes pdRoof { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes pdPulse { 0%,100% { opacity:0.55; } 50% { opacity:1; } }
+  @keyframes pdWord { 0%,100% { opacity:0; transform: translateY(10px); } 12%,88% { opacity:1; transform: translateY(0); } }
+  @keyframes pdBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+  @keyframes pdScan { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="position:relative; min-height:100vh; background:radial-gradient(1100px 700px at 78% -8%, rgba(51,214,166,0.12), transparent 60%), radial-gradient(900px 600px at 8% 12%, rgba(255,138,61,0.09), transparent 62%), #060B0A; color:#EDF4F1; font-family:'Inter', sans-serif; overflow-x:hidden;">
+
+  <!-- ambient layers -->
+  <div style="position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5; background-image:linear-gradient(rgba(51,214,166,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(51,214,166,0.05) 1px, transparent 1px); background-size:60px 60px; animation:pdGrid 14s linear infinite; mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%); -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);"></div>
+  <div style="position:fixed; top:-160px; right:-120px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(51,214,166,0.16), transparent 68%); filter:blur(20px); pointer-events:none; z-index:0; animation:pdDrift1 16s ease-in-out infinite;"></div>
+  <div style="position:fixed; bottom:-180px; left:-140px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(255,138,61,0.12), transparent 66%); filter:blur(20px); pointer-events:none; z-index:0; animation:pdDrift2 20s ease-in-out infinite;"></div>
+
+  <div style="position:relative; z-index:1;">
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:50; backdrop-filter:blur(14px); background:rgba(6,11,10,0.72); border-bottom:1px solid rgba(255,255,255,0.06);">
+    <div style="max-width:1220px; margin:0 auto; padding:16px clamp(20px,5vw,60px); display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <a href="#top" onClick="{{ backHome }}" style="display:flex; align-items:center; gap:11px; text-decoration:none; flex-shrink:0;">
+        <span style="position:relative; width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:rgba(51,214,166,0.10); border:1px solid rgba(51,214,166,0.28); box-shadow:0 0 20px rgba(51,214,166,0.22);">
+          <img src="assets/logo.jpg" alt="Pasaman Dev" style="width:26px; height:26px; border-radius:6px; object-fit:cover;">
+        </span>
+        <span style="font-family:'Sora',sans-serif; font-weight:700; font-size:16.5px; letter-spacing:-0.01em; color:#EDF4F1; white-space:nowrap;">Pasaman<span style="color:#33D6A6;">Dev</span></span>
+      </a>
+      <nav style="display:flex; align-items:center; gap:clamp(12px,2.2vw,26px); flex-wrap:wrap;">
+        <a href="#about" onClick="{{ goAbout }}" style="font-size:13.5px; font-weight:500; color:#B9C7C1;" style-hover="color:#33D6A6;">Tentang</a>
+        <a href="#projects" onClick="{{ goProjects }}" style="font-size:13.5px; font-weight:500; color:#B9C7C1;" style-hover="color:#33D6A6;">Project</a>
+        <a href="#blog" onClick="{{ goBlog }}" style="font-size:13.5px; font-weight:500; color:#B9C7C1;" style-hover="color:#33D6A6;">Blog</a>
+        <a href="#gallery" onClick="{{ goGallery }}" style="font-size:13.5px; font-weight:500; color:#B9C7C1;" style-hover="color:#33D6A6;">Galeri</a>
+        <a href="#partner" onClick="{{ goPartner }}" style="font-size:13.5px; font-weight:500; color:#B9C7C1;" style-hover="color:#33D6A6;">Kerjasama</a>
+        <a href="#join" onClick="{{ goJoin }}" style="font-family:'Sora',sans-serif; font-size:13.5px; font-weight:600; color:#060B0A; background:#33D6A6; padding:9px 18px; border-radius:100px; white-space:nowrap; transition:transform .2s ease, box-shadow .2s ease; display:inline-block; box-shadow:0 0 0 rgba(51,214,166,0);" style-hover="transform:translateY(-2px); box-shadow:0 8px 24px rgba(51,214,166,0.4);">Gabung</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+  <!-- HERO -->
+  <section id="top" style="position:relative; max-width:1220px; margin:0 auto; padding:clamp(84px,13vw,150px) clamp(20px,5vw,60px) clamp(40px,6vw,72px); overflow:hidden;">
+    <div style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(420px 420px at var(--pd-mx,70%) var(--pd-my,30%), rgba(51,214,166,0.14), transparent 60%); transition:background .12s ease;"></div>
+
+    <!-- gonjong roofline wireframe -->
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" style="position:absolute; left:0; right:0; bottom:0; width:100%; height:clamp(150px,20vw,240px); pointer-events:none; opacity:0.5; animation:pdRoof 9s ease-in-out infinite;">
+      <path d="M0,150 C84,150 54,70 120,70 C186,70 156,150 240,150 C324,150 294,45 360,45 C426,45 396,150 480,150 C564,150 534,28 600,28 C666,28 636,150 720,150 C804,150 774,45 840,45 C906,45 876,150 960,150 C1044,150 1014,70 1080,70 C1146,70 1116,150 1200,150 L1200,200 L0,200 Z" fill="url(#pdRoofFill)"></path>
+      <path d="M0,150 C84,150 54,70 120,70 C186,70 156,150 240,150 C324,150 294,45 360,45 C426,45 396,150 480,150 C564,150 534,28 600,28 C666,28 636,150 720,150 C804,150 774,45 840,45 C906,45 876,150 960,150 C1044,150 1014,70 1080,70 C1146,70 1116,150 1200,150" fill="none" stroke="#33D6A6" stroke-width="1.6" stroke-linejoin="round" style="filter:drop-shadow(0 0 6px rgba(51,214,166,0.5));"></path>
+      <defs>
+        <linearGradient id="pdRoofFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(51,214,166,0.10)"></stop>
+          <stop offset="100%" stop-color="rgba(51,214,166,0)"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div style="position:relative; max-width:760px;">
+      <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; background:rgba(51,214,166,0.08); border:1px solid rgba(51,214,166,0.24); padding:6px 14px; border-radius:100px; margin-bottom:26px; opacity:0; animation:pdFadeUp 0.7s ease 0.05s both;">
+        <svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>
+        KOMUNITAS IT PASAMAN
+      </span>
+      <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(40px,6.4vw,76px); line-height:1.04; letter-spacing:-0.02em; margin:0 0 26px; color:#EDF4F1; opacity:0; animation:pdFadeUp 0.7s ease 0.15s both;">Ruang untuk <span style="color:#FF8A3D; text-shadow:0 0 30px rgba(255,138,61,0.4);">{{ rotWord }}</span><span style="display:inline-block; width:3px; height:0.82em; background:#FF8A3D; margin-left:4px; vertical-align:-0.05em; animation:pdBlink 1s step-end infinite;"></span><br>di dunia teknologi</h1>
+      <p style="font-size:clamp(16px,2vw,18.5px); line-height:1.65; color:#93A29C; margin:0 0 40px; max-width:540px; opacity:0; animation:pdFadeUp 0.7s ease 0.25s both;">Pasaman Dev adalah wadah bagi developer, desainer, dan pegiat teknologi di Pasaman untuk belajar bersama dan mengembangkan produk digital yang bermanfaat.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:pdFadeUp 0.7s ease 0.35s both;">
+        <a href="#join" onClick="{{ goJoin }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#060B0A; background:#33D6A6; padding:15px 30px; border-radius:100px; transition:transform .2s ease, box-shadow .2s ease; display:inline-block; box-shadow:0 0 0 rgba(51,214,166,0);" style-hover="transform:translateY(-3px); box-shadow:0 12px 30px rgba(51,214,166,0.42);">Gabung Komunitas</a>
+        <a href="#projects" onClick="{{ goProjects }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#EDF4F1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); padding:15px 30px; border-radius:100px; transition:transform .2s ease, border-color .2s ease, color .2s ease; display:inline-block;" style-hover="border-color:#33D6A6; color:#33D6A6; transform:translateY(-3px);">Lihat Project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div style="position:relative; border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); padding:16px 0; overflow:hidden; background:rgba(255,255,255,0.015);">
+    <div style="display:flex; width:max-content; animation:pdMarquee 26s linear infinite; will-change:transform;">
+      <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="12">
+        <span style="display:inline-flex; align-items:center; gap:22px; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.06em; color:#5F7069; padding:0 22px;"><span style="color:#33D6A6;">◆</span>{{ m }}</span>
+      </sc-for>
+    </div>
+    <div style="position:absolute; top:0; left:0; bottom:0; width:120px; background:linear-gradient(90deg,#060B0A,transparent); pointer-events:none;"></div>
+    <div style="position:absolute; top:0; right:0; bottom:0; width:120px; background:linear-gradient(270deg,#060B0A,transparent); pointer-events:none;"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" style="max-width:1220px; margin:0 auto; padding:clamp(64px,9vw,110px) clamp(20px,5vw,60px);">
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>TENTANG KAMI</span>
+    <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 20px; max-width:660px; color:#EDF4F1;">Wadah belajar dan berkembang untuk talenta IT Pasaman</h2>
+    <p style="font-size:16.5px; line-height:1.7; color:#93A29C; max-width:640px; margin:0 0 64px;">Pasaman Dev lahir dari semangat anak muda Pasaman untuk memperluas ekosistem teknologi di daerah. Kami percaya belajar akan lebih cepat dan bermakna jika dilakukan bersama-sama.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px;">
+      <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="3">
+        <div ref="{{ observeEl }}" data-reveal-id="pillar-{{ $index }}" style="{{ p.style }}position:relative; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:30px 28px; overflow:hidden; transition:border-color .3s ease, transform .3s ease;" style-hover="border-color:rgba(51,214,166,0.4); transform:translateY(-4px);">
+          <span style="display:block; font-family:'JetBrains Mono',monospace; font-weight:500; font-size:14px; color:{{ p.color }}; margin-bottom:18px;">{{ p.n }}</span>
+          <h3 style="font-family:'Sora',sans-serif; font-weight:600; font-size:19px; margin:0 0 10px; color:#EDF4F1;">{{ p.title }}</h3>
+          <p style="font-size:14.5px; line-height:1.65; color:#93A29C; margin:0;">{{ p.desc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,90px) clamp(20px,5vw,60px);">
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>KARYA KOMUNITAS</span>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:44px;">
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px); letter-spacing:-0.01em; margin:0; color:#EDF4F1;">Project &amp; Portfolio</h2>
+      <p style="font-size:15px; color:#93A29C; margin:0; max-width:360px;">Hasil kolaborasi member komunitas — klik untuk lihat detail.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:22px;">
+      <sc-for list="{{ projectsHome }}" as="proj" hint-placeholder-count="3">
+        <div ref="{{ observeEl }}" data-reveal-id="project-{{ $index }}" onClick="{{ proj.open }}" style="{{ proj.style }}position:relative; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); border-color:rgba(51,214,166,0.4); box-shadow:0 20px 44px rgba(0,0,0,0.4);">
+          <div style="position:relative; height:172px; background:linear-gradient(135deg, rgba(51,214,166,0.10), rgba(255,138,61,0.06)); display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:26px 26px;"></div>
+            <span style="position:relative; font-family:'JetBrains Mono',monospace; font-size:12px; color:#7E8E88; letter-spacing:0.04em;">&lt;/&gt; PROJECT</span>
+            <span style="position:absolute; top:12px; right:12px; font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:500; color:#33D6A6; background:rgba(51,214,166,0.12); border:1px solid rgba(51,214,166,0.24); padding:4px 10px; border-radius:100px; white-space:nowrap;">Segera Hadir</span>
+          </div>
+          <div style="padding:22px 24px 26px;">
+            <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; color:#FF8A3D; background:rgba(255,138,61,0.10); padding:4px 12px; border-radius:100px; margin-bottom:14px;">{{ proj.tag }}</span>
+            <h3 style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; margin:0 0 8px; color:#EDF4F1;">{{ proj.title }}</h3>
+            <p style="font-size:14px; line-height:1.6; color:#93A29C; margin:0 0 16px;">{{ proj.desc }}</p>
+            <span style="font-family:'Sora',sans-serif; font-size:13px; font-weight:600; color:#33D6A6;">Lihat detail →</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex; justify-content:center; margin-top:44px;">
+      <button onClick="{{ openAllProjects }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#EDF4F1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); padding:13px 30px; border-radius:100px; cursor:pointer; transition:transform .2s ease, border-color .2s ease, color .2s ease;" style-hover="border-color:#33D6A6; color:#33D6A6; transform:translateY(-3px);">Lihat Semua Project →</button>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,90px) clamp(20px,5vw,60px);">
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>BLOG &amp; ARTIKEL</span>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:44px;">
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px); letter-spacing:-0.01em; margin:0; color:#EDF4F1;">Catatan &amp; Cerita Komunitas</h2>
+      <p style="font-size:15px; color:#93A29C; margin:0; max-width:360px;">Tulisan seputar belajar, teknologi, dan perjalanan member.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:22px;">
+      <sc-for list="{{ blogHome }}" as="post" hint-placeholder-count="3">
+        <div ref="{{ observeEl }}" data-reveal-id="blog-{{ $index }}" onClick="{{ post.open }}" style="{{ post.style }}background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); border-color:rgba(255,138,61,0.4); box-shadow:0 20px 44px rgba(0,0,0,0.4);">
+          <div style="position:relative; height:150px; background:linear-gradient(135deg, rgba(255,138,61,0.10), rgba(51,214,166,0.05)); display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:26px 26px;"></div>
+            <span style="position:relative; font-family:'JetBrains Mono',monospace; font-size:12px; color:#7E8E88; letter-spacing:0.04em;"># ARTIKEL</span>
+          </div>
+          <div style="padding:22px 24px 26px;">
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap;">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; color:#FF8A3D; background:rgba(255,138,61,0.10); padding:4px 12px; border-radius:100px;">{{ post.category }}</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#5F7069;">{{ post.date }}</span>
+            </div>
+            <h3 style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; line-height:1.35; margin:0 0 8px; color:#EDF4F1;">{{ post.title }}</h3>
+            <p style="font-size:14px; line-height:1.6; color:#93A29C; margin:0 0 16px;">{{ post.excerpt }}</p>
+            <span style="font-family:'Sora',sans-serif; font-size:13px; font-weight:600; color:#33D6A6;">Baca artikel →</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,90px) clamp(20px,5vw,60px);">
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>GALERI KEGIATAN</span>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:44px;">
+      <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px); letter-spacing:-0.01em; margin:0; color:#EDF4F1;">Galeri Komunitas</h2>
+      <p style="font-size:15px; color:#93A29C; margin:0; max-width:360px;">Momen belajar, meetup, dan kolaborasi. Seret foto untuk menambahkan.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); grid-auto-rows:180px; gap:14px;">
+      <div ref="{{ observeEl }}" data-reveal-id="gal-0" style="{{ gal0 }}grid-column:span 2; grid-row:span 2; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <image-slot id="pd-gallery-1" shape="rect" placeholder="Seret foto kegiatan"></image-slot>
+      </div>
+      <div ref="{{ observeEl }}" data-reveal-id="gal-1" style="{{ gal1 }}border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <image-slot id="pd-gallery-2" shape="rect" placeholder="Seret foto"></image-slot>
+      </div>
+      <div ref="{{ observeEl }}" data-reveal-id="gal-2" style="{{ gal2 }}border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <image-slot id="pd-gallery-3" shape="rect" placeholder="Seret foto"></image-slot>
+      </div>
+      <div ref="{{ observeEl }}" data-reveal-id="gal-3" style="{{ gal3 }}border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <image-slot id="pd-gallery-4" shape="rect" placeholder="Seret foto"></image-slot>
+      </div>
+      <div ref="{{ observeEl }}" data-reveal-id="gal-4" style="{{ gal4 }}border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08);">
+        <image-slot id="pd-gallery-5" shape="rect" placeholder="Seret foto"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER / KERJASAMA -->
+  <section id="partner" style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,90px) clamp(20px,5vw,60px);">
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>KERJASAMA</span>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:clamp(36px,5vw,72px); align-items:start;">
+      <div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4vw,44px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 20px; color:#EDF4F1;">Mari berkolaborasi bersama Pasaman Dev</h2>
+        <p style="font-size:16px; line-height:1.7; color:#93A29C; margin:0 0 32px;">Kami terbuka untuk bekerja sama dengan kampus, komunitas, perusahaan, dan pemerintah daerah dalam membangun ekosistem teknologi di Pasaman.</p>
+        <a href="mailto:halo@pasamandev.id" style="display:inline-block; font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#060B0A; background:#33D6A6; padding:15px 30px; border-radius:100px; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-3px); box-shadow:0 12px 30px rgba(51,214,166,0.42);">Ajukan Kerjasama</a>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ partners }}" as="c" hint-placeholder-count="4">
+          <div ref="{{ observeEl }}" data-reveal-id="partner-{{ $index }}" style="{{ c.style }}background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px 22px; display:flex; gap:16px; align-items:flex-start; transition:border-color .3s ease, transform .3s ease;" style-hover="border-color:rgba(51,214,166,0.4); transform:translateX(4px);">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:500; color:{{ c.color }}; background:{{ c.bg }}; width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; flex-shrink:0; border:1px solid rgba(255,255,255,0.06);">{{ c.label }}</span>
+            <div>
+              <h3 style="font-family:'Sora',sans-serif; font-weight:600; font-size:16.5px; margin:0 0 5px; color:#EDF4F1;">{{ c.title }}</h3>
+              <p style="font-size:14px; line-height:1.6; color:#93A29C; margin:0;">{{ c.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(44px,6vw,68px); border-top:1px solid rgba(255,255,255,0.08); padding-top:40px;">
+      <span style="display:block; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#5F7069; letter-spacing:0.06em; margin-bottom:24px; text-align:center;">TELAH DIDUKUNG OLEH</span>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:14px;">
+        <sc-for list="{{ partnerLogos }}" as="l" hint-placeholder-count="4">
+          <div style="height:72px; border:1px dashed rgba(255,255,255,0.14); border-radius:12px; display:flex; align-items:center; justify-content:center; transition:border-color .3s ease;" style-hover="border-color:rgba(51,214,166,0.4);">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5F7069; letter-spacing:0.04em;">{{ l }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN CTA -->
+  <section id="join" style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,90px) clamp(20px,5vw,60px) clamp(64px,9vw,110px);">
+    <div style="position:relative; text-align:center; border:1px solid rgba(51,214,166,0.22); border-radius:26px; padding:clamp(48px,8vw,84px) clamp(24px,5vw,60px); overflow:hidden; background:radial-gradient(700px 320px at 50% -10%, rgba(51,214,166,0.16), transparent 60%), rgba(255,255,255,0.02);">
+      <div style="position:absolute; inset:0; pointer-events:none; opacity:0.4; background-image:linear-gradient(rgba(51,214,166,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(51,214,166,0.06) 1px, transparent 1px); background-size:48px 48px; mask-image:radial-gradient(circle at 50% 0%, #000, transparent 75%); -webkit-mask-image:radial-gradient(circle at 50% 0%, #000, transparent 75%);"></div>
+      <div style="position:relative; max-width:620px; margin:0 auto;">
+        <h2 style="font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(28px,4.4vw,44px); letter-spacing:-0.01em; color:#EDF4F1; margin:0 0 18px; line-height:1.15;">Siap belajar dan berkembang bersama?</h2>
+        <p style="font-size:16px; line-height:1.6; color:#93A29C; margin:0 0 34px;">Gabung dengan komunitas dan mulai kolaborasi bersama developer lain di Pasaman.</p>
+        <a href="#" style="display:inline-block; font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#060B0A; background:#33D6A6; padding:16px 36px; border-radius:100px; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-3px); box-shadow:0 14px 34px rgba(51,214,166,0.45);">Daftar Sekarang</a>
+        <p style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5F7069; margin:18px 0 0;">*Formulir pendaftaran akan segera hadir</p>
+      </div>
+    </div>
+  </section>
+  </div>
+  </sc-if>
+
+  <!-- ============ ALL PROJECTS ============ -->
+  <sc-if value="{{ isProjectsAll }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:1220px; margin:0 auto; padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px) clamp(72px,10vw,110px); animation:pdPageIn 0.45s ease both;">
+    <button onClick="{{ backHome }}" style="font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:#93A29C; background:none; border:none; padding:0; margin-bottom:28px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:color .2s ease;" style-hover="color:#33D6A6;">← Kembali ke Beranda</button>
+    <span style="display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:500; letter-spacing:0.04em; color:#33D6A6; margin-bottom:16px;"><svg viewBox="0 0 40 16" width="24" height="10" fill="none" stroke="#33D6A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1,14 C4,14 4,3 7,3 C10,3 10,14 13,14 C16,14 16,1 20,1 C24,1 24,14 27,14 C30,14 30,3 33,3 C36,3 36,14 39,14"></path></svg>SEMUA PROJECT</span>
+    <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,5vw,50px); letter-spacing:-0.02em; margin:0 0 16px; color:#EDF4F1;">Semua Project Komunitas</h1>
+    <p style="font-size:16px; line-height:1.65; color:#93A29C; max-width:600px; margin:0 0 48px;">Kumpulan project yang sedang dan akan dikembangkan bersama oleh member Pasaman Dev.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px,1fr)); gap:22px;">
+      <sc-for list="{{ projectsAll }}" as="proj" hint-placeholder-count="6">
+        <div onClick="{{ proj.open }}" style="position:relative; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); border-color:rgba(51,214,166,0.4); box-shadow:0 20px 44px rgba(0,0,0,0.4);">
+          <div style="position:relative; height:172px; background:linear-gradient(135deg, rgba(51,214,166,0.10), rgba(255,138,61,0.06)); display:flex; align-items:center; justify-content:center; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.06);">
+            <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:26px 26px;"></div>
+            <span style="position:relative; font-family:'JetBrains Mono',monospace; font-size:12px; color:#7E8E88; letter-spacing:0.04em;">&lt;/&gt; PROJECT</span>
+            <span style="position:absolute; top:12px; right:12px; font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:500; color:#33D6A6; background:rgba(51,214,166,0.12); border:1px solid rgba(51,214,166,0.24); padding:4px 10px; border-radius:100px; white-space:nowrap;">Segera Hadir</span>
+          </div>
+          <div style="padding:22px 24px 26px;">
+            <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; color:#FF8A3D; background:rgba(255,138,61,0.10); padding:4px 12px; border-radius:100px; margin-bottom:14px;">{{ proj.tag }}</span>
+            <h3 style="font-family:'Sora',sans-serif; font-weight:600; font-size:18px; margin:0 0 8px; color:#EDF4F1;">{{ proj.title }}</h3>
+            <p style="font-size:14px; line-height:1.6; color:#93A29C; margin:0 0 16px;">{{ proj.desc }}</p>
+            <span style="font-family:'Sora',sans-serif; font-size:13px; font-weight:600; color:#33D6A6;">Lihat detail →</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ PROJECT DETAIL ============ -->
+  <sc-if value="{{ isProjectDetail }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:920px; margin:0 auto; padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px) clamp(72px,10vw,110px); animation:pdPageIn 0.45s ease both;">
+    <button onClick="{{ backFromDetail }}" style="font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:#93A29C; background:none; border:none; padding:0; margin-bottom:36px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:color .2s ease;" style-hover="color:#33D6A6;">← Kembali</button>
+
+    <span style="display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; color:#FF8A3D; background:rgba(255,138,61,0.10); padding:4px 12px; border-radius:100px; margin-bottom:18px;">{{ activeProject.tag }}</span>
+    <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(30px,5vw,48px); line-height:1.12; letter-spacing:-0.02em; margin:0 0 16px; color:#EDF4F1;">{{ activeProject.title }}</h1>
+    <p style="font-size:16.5px; line-height:1.65; color:#93A29C; max-width:600px; margin:0 0 40px;">{{ activeProject.desc }}</p>
+
+    <div style="position:relative; height:clamp(220px,32vw,360px); border-radius:18px; overflow:hidden; background:linear-gradient(135deg, rgba(51,214,166,0.10), rgba(255,138,61,0.06)); display:flex; align-items:center; justify-content:center; margin-bottom:48px; border:1px solid rgba(255,255,255,0.08);">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:34px 34px;"></div>
+      <span style="position:relative; font-family:'JetBrains Mono',monospace; font-size:13px; color:#7E8E88; letter-spacing:0.03em;">&lt;/&gt; PREVIEW PROJECT</span>
+      <span style="position:absolute; top:16px; right:16px; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:#33D6A6; background:rgba(51,214,166,0.12); border:1px solid rgba(51,214,166,0.24); padding:5px 12px; border-radius:100px; white-space:nowrap;">Segera Hadir</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:44px; margin-bottom:48px;">
+      <div>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:600; font-size:20px; margin:0 0 16px; color:#EDF4F1;">Ringkasan</h2>
+        <p style="font-size:15px; line-height:1.75; color:#93A29C; margin:0 0 28px;">Halaman detail lengkap untuk project ini akan diperbarui begitu development dimulai. Bagian ini akan berisi latar belakang masalah, proses pengerjaan, dan peran member komunitas yang terlibat.</p>
+        <h2 style="font-family:'Sora',sans-serif; font-weight:600; font-size:20px; margin:0 0 16px; color:#EDF4F1;">Fitur yang Direncanakan</h2>
+        <sc-for list="{{ activeProject.features }}" as="f" hint-placeholder-count="3">
+          <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:12px;">
+            <span style="width:6px; height:6px; border-radius:50%; background:#33D6A6; margin-top:8px; flex-shrink:0; box-shadow:0 0 8px rgba(51,214,166,0.6);"></span>
+            <span style="font-size:14.5px; line-height:1.6; color:#93A29C;">{{ f }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:24px; align-self:start;">
+        <span style="display:block; font-family:'JetBrains Mono',monospace; font-size:11px; color:#5F7069; letter-spacing:0.04em; margin-bottom:16px;">INFO PROJECT</span>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div>
+            <span style="display:block; font-size:12px; color:#5F7069; margin-bottom:3px;">Kategori</span>
+            <span style="display:block; font-size:14.5px; font-weight:600; color:#EDF4F1;">{{ activeProject.tag }}</span>
+          </div>
+          <div>
+            <span style="display:block; font-size:12px; color:#5F7069; margin-bottom:3px;">Status</span>
+            <span style="display:block; font-size:14.5px; font-weight:600; color:#33D6A6;">{{ activeProject.status }}</span>
+          </div>
+          <div>
+            <span style="display:block; font-size:12px; color:#5F7069; margin-bottom:3px;">Dikembangkan oleh</span>
+            <span style="display:block; font-size:14.5px; font-weight:600; color:#EDF4F1;">Member Pasaman Dev</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:14px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.08); padding-top:36px;">
+      <button onClick="{{ backFromDetail }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#EDF4F1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.14); padding:14px 28px; border-radius:100px; cursor:pointer; transition:transform .2s ease, border-color .2s ease, color .2s ease;" style-hover="border-color:#33D6A6; color:#33D6A6; transform:translateY(-2px);">Kembali</button>
+      <button onClick="{{ goJoin }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#060B0A; background:#33D6A6; padding:14px 28px; border-radius:100px; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-2px); box-shadow:0 12px 30px rgba(51,214,166,0.42);">Gabung &amp; Ikut Berkontribusi</button>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ============ BLOG DETAIL ============ -->
+  <sc-if value="{{ isBlogDetail }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:780px; margin:0 auto; padding:clamp(48px,7vw,80px) clamp(20px,5vw,60px) clamp(72px,10vw,110px); animation:pdPageIn 0.45s ease both;">
+    <button onClick="{{ backHome }}" style="font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:#93A29C; background:none; border:none; padding:0; margin-bottom:32px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:color .2s ease;" style-hover="color:#33D6A6;">← Kembali ke Blog</button>
+
+    <div style="display:flex; gap:10px; align-items:center; margin-bottom:18px; flex-wrap:wrap;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; color:#FF8A3D; background:rgba(255,138,61,0.10); padding:4px 12px; border-radius:100px;">{{ activeBlog.category }}</span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#5F7069;">{{ activeBlog.date }} · {{ activeBlog.author }}</span>
+    </div>
+    <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(28px,4.6vw,46px); line-height:1.15; letter-spacing:-0.02em; margin:0 0 32px; color:#EDF4F1;">{{ activeBlog.title }}</h1>
+
+    <div style="position:relative; height:clamp(200px,30vw,320px); border-radius:18px; overflow:hidden; background:linear-gradient(135deg, rgba(255,138,61,0.10), rgba(51,214,166,0.05)); display:flex; align-items:center; justify-content:center; margin-bottom:44px; border:1px solid rgba(255,255,255,0.08);">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:34px 34px;"></div>
+      <span style="position:relative; font-family:'JetBrains Mono',monospace; font-size:13px; color:#7E8E88; letter-spacing:0.03em;"># COVER ARTIKEL</span>
+    </div>
+
+    <p style="font-size:17px; line-height:1.8; color:#C4D0CB; margin:0 0 24px;">{{ activeBlog.excerpt }}</p>
+    <p style="font-size:16px; line-height:1.8; color:#93A29C; margin:0 0 24px;">Isi lengkap artikel ini akan segera ditulis oleh member komunitas. Bagian ini menjadi ruang berbagi pengalaman, tutorial, dan cerita perjalanan belajar teknologi di Pasaman.</p>
+    <p style="font-size:16px; line-height:1.8; color:#93A29C; margin:0 0 40px;">Punya ide atau ingin menulis artikel di sini? Bergabunglah dengan komunitas dan mulai berkontribusi bersama.</p>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:32px;">
+      <button onClick="{{ goJoin }}" style="font-family:'Sora',sans-serif; font-weight:600; font-size:15px; color:#060B0A; background:#33D6A6; padding:14px 28px; border-radius:100px; cursor:pointer; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-2px); box-shadow:0 12px 30px rgba(51,214,166,0.42);">Gabung &amp; Mulai Menulis</button>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- FOOTER -->
+  <footer id="footer" style="max-width:1220px; margin:0 auto; padding:clamp(56px,7vw,80px) clamp(20px,5vw,60px) 32px; border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:40px; padding-bottom:48px;">
+      <div style="max-width:280px;">
+        <div style="display:flex; align-items:center; gap:11px; margin-bottom:14px;">
+          <span style="width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:rgba(51,214,166,0.10); border:1px solid rgba(51,214,166,0.24);">
+            <img src="assets/logo.jpg" alt="Pasaman Dev" style="width:23px; height:23px; border-radius:5px; object-fit:cover;">
+          </span>
+          <span style="font-family:'Sora',sans-serif; font-weight:700; font-size:16px; color:#EDF4F1;">Pasaman<span style="color:#33D6A6;">Dev</span></span>
+        </div>
+        <p style="font-size:14px; line-height:1.6; color:#93A29C; margin:0;">Komunitas belajar dan pengembangan produk IT untuk talenta Pasaman.</p>
+      </div>
+
+      <div>
+        <span style="display:block; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#5F7069; letter-spacing:0.04em; margin-bottom:16px;">NAVIGASI</span>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="#about" onClick="{{ goAbout }}" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">Tentang Kami</a>
+          <a href="#projects" onClick="{{ goProjects }}" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">Project</a>
+          <a href="#blog" onClick="{{ goBlog }}" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">Blog</a>
+          <a href="#gallery" onClick="{{ goGallery }}" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">Galeri</a>
+          <a href="#partner" onClick="{{ goPartner }}" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">Kerjasama</a>
+        </div>
+      </div>
+
+      <div>
+        <span style="display:block; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#5F7069; letter-spacing:0.04em; margin-bottom:16px;">KONTAK</span>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <a href="mailto:halo@pasamandev.id" style="font-size:14.5px; color:#B9C7C1;" style-hover="color:#33D6A6;">halo@pasamandev.id</a>
+          <span style="font-size:14.5px; color:#93A29C;">Pasaman, Sumatera Barat</span>
+        </div>
+      </div>
+
+      <div>
+        <span style="display:block; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#5F7069; letter-spacing:0.04em; margin-bottom:16px;">SOSIAL</span>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <sc-for list="{{ socials }}" as="s" hint-placeholder-count="4">
+            <a href="{{ s.href }}" title="{{ s.name }}" style="width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; color:#B9C7C1; transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;" style-hover="background:#33D6A6; border-color:#33D6A6; color:#060B0A; transform:translateY(-3px);">{{ s.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(255,255,255,0.06); padding-top:24px; text-align:center;">
+      <span style="font-size:13px; color:#5F7069;">© 2026 Pasaman Dev. Semua hak dilindungi.</span>
+    </div>
+  </footer>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: 'home', activeIndex: null, activeBlogIndex: null, returnTo: 'home', revealed: {}, wordIndex: 0 };
+
+  componentDidMount() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('data-reveal-id');
+          if (id) this.setState((s) => ({ revealed: { ...s.revealed, [id]: true } }));
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    this.words = ['Berkarya', 'Belajar', 'Bertumbuh', 'Berinovasi', 'Berkolaborasi'];
+    this.wordTimer = setInterval(() => {
+      this.setState((s) => ({ wordIndex: (s.wordIndex + 1) % this.words.length }));
+    }, 2400);
+
+    this.onMove = (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.documentElement.style.setProperty('--pd-mx', x + '%');
+      document.documentElement.style.setProperty('--pd-my', y + '%');
+    };
+    window.addEventListener('mousemove', this.onMove, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this.observer) this.observer.disconnect();
+    if (this.wordTimer) clearInterval(this.wordTimer);
+    if (this.onMove) window.removeEventListener('mousemove', this.onMove);
+  }
+
+  observeEl = (el) => { if (el && this.observer) this.observer.observe(el); };
+
+  toTop() { requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' })); }
+
+  scrollToId(id) {
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' });
+    });
+  }
+
+  goToSection = (id) => (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (id !== 'footer' && this.state.view !== 'home') this.setState({ view: 'home' }, () => this.scrollToId(id));
+    else this.scrollToId(id);
+  };
+
+  backHome = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ view: 'home', activeIndex: null, activeBlogIndex: null }, () => this.toTop());
+  };
+
+  backFromDetail = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ view: this.state.returnTo || 'home' }, () => this.toTop());
+  };
+
+  openAllProjects = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ view: 'projects-all' }, () => this.toTop());
+  };
+
+  openDetail(i) { this.setState({ view: 'project-detail', activeIndex: i, returnTo: this.state.view }, () => this.toTop()); }
+  openBlog(i) { this.setState({ view: 'blog-detail', activeBlogIndex: i }, () => this.toTop()); }
+
+  renderVals() {
+    const revealed = this.state.revealed;
+    const mk = (id, delay) => ({
+      opacity: revealed[id] ? 1 : 0,
+      transform: revealed[id] ? 'translateY(0)' : 'translateY(24px)',
+      transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+    });
+
+    const pillarsSrc = [
+      { color: '#FF8A3D', n: '01', title: 'Belajar Bersama', desc: 'Diskusi, workshop, dan sharing knowledge rutin seputar dunia pengembangan software.' },
+      { color: '#33D6A6', n: '02', title: 'Kolaborasi', desc: 'Membangun koneksi antar talenta IT di Pasaman untuk saling mendukung dan berkembang.' },
+      { color: '#FF8A3D', n: '03', title: 'Pengembangan Produk', desc: 'Mengubah ide menjadi produk digital nyata lewat project-project komunitas.' },
+    ];
+    const pillars = pillarsSrc.map((p, i) => ({ ...p, style: mk('pillar-' + i, i * 0.08) }));
+
+    const projectsSrc = [
+      { tag: 'Web App', title: 'Project Komunitas 01', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Pengembangan',
+        features: ['Antarmuka yang sederhana dan mudah digunakan', 'Dirancang mengikuti kebutuhan lokal Pasaman', 'Dikembangkan secara kolaboratif oleh member komunitas'] },
+      { tag: 'Mobile App', title: 'Project Komunitas 02', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Perencanaan',
+        features: ['Pengalaman pengguna yang ringan dan cepat', 'Terbuka untuk kontribusi member baru', 'Studi kasus nyata untuk belajar bersama'] },
+      { tag: 'Open Source', title: 'Project Komunitas 03', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Perencanaan',
+        features: ['Kode sumber terbuka untuk dipelajari bersama', 'Dokumentasi ramah untuk kontributor baru', 'Menjadi ruang latihan kolaborasi ala tim dev'] },
+      { tag: 'Web App', title: 'Project Komunitas 04', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Perencanaan',
+        features: ['Fokus pada dampak untuk masyarakat sekitar', 'Dibangun dengan teknologi modern', 'Ruang belajar penuh untuk member'] },
+      { tag: 'UI/UX', title: 'Project Komunitas 05', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Perencanaan',
+        features: ['Riset pengguna dan perancangan antarmuka', 'Kolaborasi antara desainer dan developer', 'Dokumentasi design system sederhana'] },
+      { tag: 'Data', title: 'Project Komunitas 06', desc: 'Deskripsi singkat project akan ditambahkan di sini.', status: 'Dalam Perencanaan',
+        features: ['Eksplorasi data untuk kebutuhan lokal', 'Visualisasi yang mudah dipahami', 'Belajar analisis data secara praktis'] },
+    ];
+    const projectsHome = projectsSrc.slice(0, 3).map((p, i) => ({ ...p, style: mk('project-' + i, i * 0.08), open: () => this.openDetail(i) }));
+    const projectsAll = projectsSrc.map((p, i) => ({ ...p, open: () => this.openDetail(i) }));
+
+    const blogSrc = [
+      { category: 'Karier', date: '10 Jul 2026', author: 'Tim Pasaman Dev', title: 'Memulai Perjalanan sebagai Developer dari Daerah', excerpt: 'Cerita dan langkah awal membangun karier di dunia teknologi meski jauh dari kota besar.' },
+      { category: 'Belajar', date: '02 Jul 2026', author: 'Tim Pasaman Dev', title: 'Tips Belajar Coding Secara Kolaboratif', excerpt: 'Kenapa belajar bersama komunitas bisa mempercepat perkembangan skill teknismu.' },
+      { category: 'Produk', date: '24 Jun 2026', author: 'Tim Pasaman Dev', title: 'Mengubah Ide Menjadi Produk Digital', excerpt: 'Proses dari sekadar ide hingga menjadi produk yang benar-benar dipakai orang.' },
+    ];
+    const blogHome = blogSrc.map((b, i) => ({ ...b, style: mk('blog-' + i, i * 0.08), open: () => this.openBlog(i) }));
+
+    const partners = [
+      { label: 'CO', color: '#FF8A3D', bg: 'rgba(255,138,61,0.10)', title: 'Perusahaan & Startup', desc: 'Program magang, mentorship, dan pengerjaan project bersama.' },
+      { label: 'ED', color: '#33D6A6', bg: 'rgba(51,214,166,0.12)', title: 'Kampus & Sekolah', desc: 'Workshop, seminar, dan kolaborasi kurikulum teknologi.' },
+      { label: 'GV', color: '#FF8A3D', bg: 'rgba(255,138,61,0.10)', title: 'Pemerintah Daerah', desc: 'Inisiatif digitalisasi dan pengembangan talenta lokal.' },
+      { label: 'CM', color: '#33D6A6', bg: 'rgba(51,214,166,0.12)', title: 'Komunitas Lain', desc: 'Kolaborasi acara, sharing session, dan project lintas komunitas.' },
+    ].map((c, i) => ({ ...c, style: mk('partner-' + i, i * 0.06) }));
+    const partnerLogos = ['LOGO 01', 'LOGO 02', 'LOGO 03', 'LOGO 04'];
+
+    const marqueeWords = ['BELAJAR', 'BERKARYA', 'KOLABORASI', 'OPEN SOURCE', 'PASAMAN', 'TEKNOLOGI', 'INOVASI', 'KOMUNITAS'];
+    const marquee = marqueeWords.concat(marqueeWords);
+
+    const socials = [
+      { label: 'IG', name: 'Instagram', href: '#' },
+      { label: 'WA', name: 'Grup WhatsApp', href: '#' },
+      { label: 'GH', name: 'GitHub', href: '#' },
+      { label: 'IN', name: 'LinkedIn', href: '#' },
+    ];
+
+    const activeProject = projectsSrc[this.state.activeIndex] || projectsSrc[0];
+    const activeBlog = blogSrc[this.state.activeBlogIndex] || blogSrc[0];
+    const words = ['Berkarya', 'Belajar', 'Bertumbuh', 'Berinovasi', 'Berkolaborasi'];
+
+    return {
+      pillars, partners, partnerLogos, marquee,
+      rotWord: words[this.state.wordIndex],
+      gal0: mk('gal-0', 0), gal1: mk('gal-1', 0.06), gal2: mk('gal-2', 0.12), gal3: mk('gal-3', 0.18), gal4: mk('gal-4', 0.24),
+      projectsHome, projectsAll, blogHome, socials, activeProject, activeBlog,
+      isHome: this.state.view === 'home',
+      isProjectsAll: this.state.view === 'projects-all',
+      isProjectDetail: this.state.view === 'project-detail',
+      isBlogDetail: this.state.view === 'blog-detail',
+      observeEl: this.observeEl,
+      backHome: this.backHome,
+      backFromDetail: this.backFromDetail,
+      openAllProjects: this.openAllProjects,
+      goAbout: this.goToSection('about'),
+      goProjects: this.goToSection('projects'),
+      goBlog: this.goToSection('blog'),
+      goGallery: this.goToSection('gallery'),
+      goPartner: this.goToSection('partner'),
+      goJoin: this.goToSection('join'),
+    };
+  }
+}
+</script>
+</body>
+</html>

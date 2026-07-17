@@ -1,0 +1,98 @@
+title: Project
+tabs:
+  main:
+    display: Konten
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          display: 'Judul Project'
+          validate:
+            - required
+      -
+        handle: slug
+        field:
+          type: slug
+          display: Slug
+          from: title
+          generate: true
+          validate:
+            - required
+      -
+        handle: excerpt
+        field:
+          type: textarea
+          display: 'Deskripsi Singkat'
+          instructions: 'Tampil di kartu project pada halaman depan.'
+          character_limit: 200
+          validate:
+            - required
+      -
+        handle: cover
+        field:
+          type: assets
+          display: 'Gambar Cover'
+          container: assets
+          folder: projects
+          max_files: 1
+          mode: grid
+      -
+        handle: content
+        field:
+          type: bard
+          display: Ringkasan
+          instructions: 'Penjelasan lengkap project.'
+          buttons: [bold, italic, unorderedlist, orderedlist, quote, anchor, h2, h3, image, code]
+          container: assets
+          save_html: false
+      -
+        handle: features
+        field:
+          type: list
+          display: 'Fitur yang Direncanakan'
+          instructions: 'Satu baris per fitur.'
+          add_button: 'Tambah Fitur'
+  meta:
+    display: Detail
+    fields:
+      -
+        handle: project_types
+        field:
+          type: terms
+          display: 'Tipe Project'
+          taxonomies:
+            - project_types
+          max_items: 1
+          create: true
+      -
+        handle: project_status
+        field:
+          type: select
+          display: 'Status Project'
+          default: planning
+          options:
+            planning: 'Dalam Perencanaan'
+            development: 'Dalam Pengembangan'
+            completed: Selesai
+            maintenance: Pemeliharaan
+          validate:
+            - required
+      -
+        handle: repo_url
+        field:
+          type: text
+          display: 'Link Repository'
+          instructions: 'Opsional. Link GitHub / GitLab.'
+      -
+        handle: demo_url
+        field:
+          type: text
+          display: 'Link Demo'
+          instructions: 'Opsional. Link aplikasi yang sudah live.'
+      -
+        handle: featured
+        field:
+          type: toggle
+          display: 'Tampilkan di Halaman Depan'
+          instructions: 'Halaman depan menampilkan 3 project unggulan terbaru.'

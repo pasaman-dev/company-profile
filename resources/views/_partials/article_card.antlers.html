@@ -1,0 +1,21 @@
+<a href="{{ url }}" class="pd-card pd-card--article pd-reveal" style="--reveal-delay: {{ delay ?? '0' }}s;">
+    <div class="pd-card__media">
+        {{ if featured_image }}
+            <img src="{{ featured_image:url }}" alt="{{ title }}" loading="lazy">
+        {{ else }}
+            <div class="pd-mesh"></div>
+            <span class="pd-media__label"># ARTIKEL</span>
+        {{ /if }}
+    </div>
+    <div class="pd-card__body">
+        <div class="pd-meta">
+            {{ categories }}
+                <span class="pd-tag">{{ title }}</span>
+            {{ /categories }}
+            <span class="pd-meta__date">{{ date format="d M Y" }}</span>
+        </div>
+        <h3>{{ title }}</h3>
+        <p>{{ excerpt }}</p>
+        <span class="pd-card__more">Baca artikel &rarr;</span>
+    </div>
+</a>

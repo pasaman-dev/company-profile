@@ -1,0 +1,193 @@
+{{#
+    Halaman depan. Section mengikuti template landing page:
+    hero → marquee → tentang → project → blog → galeri → kerjasama → CTA
+#}}
+
+<section class="pd-hero" id="top">
+    <div class="pd-hero__spotlight"></div>
+
+    {{# Siluet atap gonjong khas Minangkabau #}}
+    <svg class="pd-hero__roof" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,150 C84,150 54,70 120,70 C186,70 156,150 240,150 C324,150 294,45 360,45 C426,45 396,150 480,150 C564,150 534,28 600,28 C666,28 636,150 720,150 C804,150 774,45 840,45 C906,45 876,150 960,150 C1044,150 1014,70 1080,70 C1146,70 1116,150 1200,150 L1200,200 L0,200 Z" fill="url(#pdRoofFill)"></path>
+        <path d="M0,150 C84,150 54,70 120,70 C186,70 156,150 240,150 C324,150 294,45 360,45 C426,45 396,150 480,150 C564,150 534,28 600,28 C666,28 636,150 720,150 C804,150 774,45 840,45 C906,45 876,150 960,150 C1044,150 1014,70 1080,70 C1146,70 1116,150 1200,150" fill="none" stroke="#33D6A6" stroke-width="1.6" stroke-linejoin="round"></path>
+        <defs>
+            <linearGradient id="pdRoofFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(51,214,166,0.10)"></stop>
+                <stop offset="100%" stop-color="rgba(51,214,166,0)"></stop>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="pd-hero__inner">
+        <span class="pd-eyebrow pd-eyebrow--pill pd-fade-1">
+            {{ partial:_partials/roofline }}
+            KOMUNITAS IT PASAMAN
+        </span>
+
+        <h1 class="pd-hero__title pd-fade-2">
+            {{ hero_prefix }}
+            <span class="pd-rotator" data-rotator="{{ hero_words | to_json | sanitize }}">{{ hero_words | first }}</span><span class="pd-caret"></span>
+            <br>{{ hero_suffix }}
+        </h1>
+
+        <p class="pd-hero__text pd-fade-3">{{ hero_description }}</p>
+
+        <div class="pd-hero__actions pd-fade-4">
+            <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url ?? '#join' }}">{{ hero_primary_label }}</a>
+            <a class="pd-btn pd-btn--ghost" href="#projects">{{ hero_secondary_label }}</a>
+        </div>
+    </div>
+</section>
+
+{{ if marquee_words }}
+    <div class="pd-marquee">
+        <div class="pd-marquee__track">
+            {{# Digandakan dua kali supaya animasi geser terlihat mulus #}}
+            {{ marquee_words }}
+                <span class="pd-marquee__item"><span>&#9670;</span>{{ value }}</span>
+            {{ /marquee_words }}
+            {{ marquee_words }}
+                <span class="pd-marquee__item" aria-hidden="true"><span>&#9670;</span>{{ value }}</span>
+            {{ /marquee_words }}
+        </div>
+        <div class="pd-marquee__fade pd-marquee__fade--left"></div>
+        <div class="pd-marquee__fade pd-marquee__fade--right"></div>
+    </div>
+{{ /if }}
+
+<section class="pd-section pd-section--about" id="about">
+    {{ partial:_partials/eyebrow text="TENTANG KAMI" }}
+    <h2 class="pd-h2">{{ about_heading }}</h2>
+    <p class="pd-lede pd-lede--about">{{ settings:site_description }}</p>
+
+    <div class="pd-grid pd-grid--pillars">
+        {{ pillars }}
+            <div class="pd-pillar pd-reveal" style="--reveal-delay: {{ index | multiply(0.08) }}s;">
+                <span class="pd-pillar__n {{ if accent == 'orange' }}pd-pillar__n--orange{{ /if }}">{{ count | ensure_left('0') }}</span>
+                <h3>{{ title }}</h3>
+                <p>{{ description }}</p>
+            </div>
+        {{ /pillars }}
+    </div>
+</section>
+
+<section class="pd-section" id="projects">
+    {{ partial:_partials/eyebrow text="KARYA KOMUNITAS" }}
+    <div class="pd-section__head">
+        <h2 class="pd-h2">Project &amp; Portfolio</h2>
+        <p>Hasil kolaborasi member komunitas — klik untuk lihat detail.</p>
+    </div>
+
+    <div class="pd-grid">
+        {{ collection:projects limit="3" }}
+            {{ partial:_partials/project_card :delay="index * 0.08" }}
+        {{ /collection:projects }}
+
+        {{ if no_results }}
+            <div class="pd-empty">Belum ada project. Tambahkan lewat Control Panel.</div>
+        {{ /if }}
+    </div>
+
+    <div class="pd-center">
+        <a class="pd-btn pd-btn--ghost" href="/project">Lihat Semua Project &rarr;</a>
+    </div>
+</section>
+
+<section class="pd-section" id="blog">
+    {{ partial:_partials/eyebrow text="BLOG &amp; ARTIKEL" }}
+    <div class="pd-section__head">
+        <h2 class="pd-h2">Catatan &amp; Cerita Komunitas</h2>
+        <p>Tulisan seputar belajar, teknologi, dan perjalanan member.</p>
+    </div>
+
+    <div class="pd-grid">
+        {{ collection:articles limit="3" }}
+            {{ partial:_partials/article_card :delay="index * 0.08" }}
+        {{ /collection:articles }}
+
+        {{ if no_results }}
+            <div class="pd-empty">Belum ada artikel. Tambahkan lewat Control Panel.</div>
+        {{ /if }}
+    </div>
+
+    <div class="pd-center">
+        <a class="pd-btn pd-btn--ghost" href="/artikel">Lihat Semua Artikel &rarr;</a>
+    </div>
+</section>
+
+<section class="pd-section" id="gallery">
+    {{ partial:_partials/eyebrow text="GALERI KEGIATAN" }}
+    <div class="pd-section__head">
+        <h2 class="pd-h2">Galeri Komunitas</h2>
+        <p>Momen belajar, meetup, dan kolaborasi member komunitas.</p>
+    </div>
+
+    <div class="pd-gallery">
+        {{ collection:gallery limit="5" }}
+            {{ partial:_partials/gallery_item :feature="index == 0" :delay="index * 0.06" }}
+        {{ /collection:gallery }}
+
+        {{ if no_results }}
+            <div class="pd-empty">Belum ada foto. Tambahkan lewat Control Panel.</div>
+        {{ /if }}
+    </div>
+
+    <div class="pd-center">
+        <a class="pd-btn pd-btn--ghost" href="/galeri">Lihat Semua Foto &rarr;</a>
+    </div>
+</section>
+
+<section class="pd-section" id="partner">
+    {{ partial:_partials/eyebrow text="KERJASAMA" }}
+
+    <div class="pd-partner">
+        <div class="pd-partner__intro">
+            <h2 class="pd-h2">{{ partner_heading }}</h2>
+            <p>{{ partner_description }}</p>
+            {{ if settings:email }}
+                <a class="pd-btn pd-btn--primary" href="mailto:{{ settings:email }}?subject=Pengajuan Kerjasama">Ajukan Kerjasama</a>
+            {{ /if }}
+        </div>
+
+        <div class="pd-partner__list">
+            {{ partners }}
+                <div class="pd-partner__card pd-reveal" style="--reveal-delay: {{ index | multiply(0.06) }}s;">
+                    <span class="pd-badge {{ if accent == 'orange' }}pd-badge--orange{{ /if }}">{{ label }}</span>
+                    <div>
+                        <h3>{{ title }}</h3>
+                        <p>{{ description }}</p>
+                    </div>
+                </div>
+            {{ /partners }}
+        </div>
+    </div>
+
+    {{ if partner_logos }}
+        <div class="pd-logos">
+            <span class="pd-logos__title">TELAH DIDUKUNG OLEH</span>
+            <div class="pd-logos__grid">
+                {{ partner_logos }}
+                    <div class="pd-logos__item">
+                        <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
+                    </div>
+                {{ /partner_logos }}
+            </div>
+        </div>
+    {{ /if }}
+</section>
+
+<section class="pd-section pd-section--last" id="join">
+    <div class="pd-cta">
+        <div class="pd-cta__mesh"></div>
+        <div class="pd-cta__inner">
+            <h2 class="pd-h2">{{ cta_heading }}</h2>
+            <p>{{ cta_description }}</p>
+            {{ if settings:whatsapp_url }}
+                <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url }}" target="_blank" rel="noopener">{{ cta_button_label }}</a>
+            {{ else }}
+                <a class="pd-btn pd-btn--primary" href="mailto:{{ settings:email }}">{{ cta_button_label }}</a>
+                <p class="pd-cta__note">*Link grup belum diisi di Konfigurasi Web</p>
+            {{ /if }}
+        </div>
+    </div>
+</section>

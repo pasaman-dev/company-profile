@@ -1,0 +1,43 @@
+<section class="pd-section pd-section--page pd-section--article pd-page-in">
+    <a class="pd-back" href="/artikel">&larr; Kembali ke Blog</a>
+
+    <div class="pd-article__meta">
+        {{ categories }}
+            <span class="pd-tag">{{ title }}</span>
+        {{ /categories }}
+        <span class="pd-meta__date">{{ date format="d M Y" }}{{ if author_name }} &middot; {{ author_name }}{{ /if }}</span>
+    </div>
+
+    <h1 class="pd-article__title">{{ title }}</h1>
+
+    <div class="pd-detail__hero pd-detail__hero--article">
+        {{ if featured_image }}
+            <img src="{{ featured_image:url }}" alt="{{ title }}">
+        {{ else }}
+            <div class="pd-mesh pd-mesh--lg"></div>
+            <span class="pd-media__label"># COVER ARTIKEL</span>
+        {{ /if }}
+    </div>
+
+    <div class="pd-prose">
+        <p>{{ excerpt }}</p>
+        {{ content }}
+    </div>
+
+    <div class="pd-actions">
+        <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url ?? '/#join' }}">Gabung &amp; Mulai Menulis</a>
+    </div>
+</section>
+
+{{ collection:articles limit="3" :not="id" as="related" }}
+    {{ if related }}
+        <section class="pd-section pd-section--last">
+            {{ partial:_partials/eyebrow text="ARTIKEL LAINNYA" }}
+            <div class="pd-grid">
+                {{ related }}
+                    {{ partial:_partials/article_card :delay="index * 0.06" }}
+                {{ /related }}
+            </div>
+        </section>
+    {{ /if }}
+{{ /collection:articles }}

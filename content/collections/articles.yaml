@@ -1,0 +1,8 @@
+title: Artikel
+route: '/artikel/{slug}'
+template: articles/show
+date: true
+sort_by: date
+sort_dir: desc
+taxonomies:
+  - categories

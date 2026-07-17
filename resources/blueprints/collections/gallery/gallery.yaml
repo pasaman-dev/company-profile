@@ -1,0 +1,40 @@
+title: 'Item Galeri'
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      display: Judul
+      instructions: 'Contoh: Workshop Laravel Batch 1'
+      validate:
+        - required
+  -
+    handle: slug
+    field:
+      type: slug
+      display: Slug
+      from: title
+      generate: true
+  -
+    handle: image
+    field:
+      type: assets
+      display: Foto
+      container: assets
+      folder: gallery
+      max_files: 1
+      mode: grid
+      validate:
+        - required
+  -
+    handle: caption
+    field:
+      type: text
+      display: Keterangan
+      instructions: 'Deskripsi singkat yang muncul saat foto di-hover.'
+  -
+    handle: featured
+    field:
+      type: toggle
+      display: 'Tampilkan di Halaman Depan'
+      instructions: 'Halaman depan menampilkan 5 foto terbaru yang ditandai.'

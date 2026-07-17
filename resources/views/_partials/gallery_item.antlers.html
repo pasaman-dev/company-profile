@@ -1,0 +1,14 @@
+<div class="pd-gallery__item {{ if feature }}pd-gallery__item--feature{{ /if }} pd-reveal" style="--reveal-delay: {{ delay ?? '0' }}s;">
+    {{ if image }}
+        <img src="{{ image:url }}" alt="{{ title }}" loading="lazy">
+    {{ else }}
+        <div class="pd-mesh"></div>
+        <span class="pd-gallery__empty">Belum ada foto</span>
+    {{ /if }}
+    {{ if title || caption }}
+        <div class="pd-gallery__caption">
+            <strong>{{ title }}</strong>
+            {{ if caption }}<span>{{ caption }}</span>{{ /if }}
+        </div>
+    {{ /if }}
+</div>

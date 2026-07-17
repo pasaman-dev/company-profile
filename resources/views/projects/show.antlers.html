@@ -1,0 +1,82 @@
+<section class="pd-section pd-section--page pd-section--narrow pd-page-in">
+    <a class="pd-back" href="/project">&larr; Kembali ke Semua Project</a>
+
+    {{ project_types }}
+        <span class="pd-tag">{{ title }}</span>
+    {{ /project_types }}
+
+    <h1 class="pd-h1">{{ title }}</h1>
+    <p class="pd-detail__lede">{{ excerpt }}</p>
+
+    <div class="pd-detail__hero">
+        {{ if cover }}
+            <img src="{{ cover:url }}" alt="{{ title }}">
+        {{ else }}
+            <div class="pd-mesh pd-mesh--lg"></div>
+            <span class="pd-media__label">&lt;/&gt; PREVIEW PROJECT</span>
+        {{ /if }}
+        {{ if project_status }}
+            <span class="pd-status pd-status--lg">{{ project_status:label }}</span>
+        {{ /if }}
+    </div>
+
+    <div class="pd-detail__grid">
+        <div>
+            <h2>Ringkasan</h2>
+            <div class="pd-prose">{{ content }}</div>
+
+            {{ if features }}
+                <h2>Fitur yang Direncanakan</h2>
+                {{ features }}
+                    <div class="pd-feature">
+                        <span class="pd-feature__dot"></span>
+                        <span class="pd-feature__text">{{ value }}</span>
+                    </div>
+                {{ /features }}
+            {{ /if }}
+        </div>
+
+        <aside class="pd-info">
+            <span class="pd-info__title">INFO PROJECT</span>
+            <div class="pd-info__list">
+                {{ project_types }}
+                    <div>
+                        <span class="pd-info__key">Kategori</span>
+                        <span class="pd-info__val">{{ title }}</span>
+                    </div>
+                {{ /project_types }}
+
+                {{ if project_status }}
+                    <div>
+                        <span class="pd-info__key">Status</span>
+                        <span class="pd-info__val pd-info__val--green">{{ project_status:label }}</span>
+                    </div>
+                {{ /if }}
+
+                <div>
+                    <span class="pd-info__key">Dikembangkan oleh</span>
+                    <span class="pd-info__val">Member {{ settings:site_name }}</span>
+                </div>
+
+                {{ if repo_url }}
+                    <div>
+                        <span class="pd-info__key">Repository</span>
+                        <span class="pd-info__val"><a href="{{ repo_url }}" target="_blank" rel="noopener">Lihat kode &rarr;</a></span>
+                    </div>
+                {{ /if }}
+
+                {{ if demo_url }}
+                    <div>
+                        <span class="pd-info__key">Demo</span>
+                        <span class="pd-info__val"><a href="{{ demo_url }}" target="_blank" rel="noopener">Buka demo &rarr;</a></span>
+                    </div>
+                {{ /if }}
+            </div>
+        </aside>
+    </div>
+
+    <div class="pd-actions">
+        <a class="pd-btn pd-btn--ghost" href="/project">Kembali</a>
+        <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url ?? '/#join' }}">Gabung &amp; Ikut Berkontribusi</a>
+    </div>
+</section>
