@@ -4,6 +4,8 @@ Panduan lengkap mengelola akun pengguna Control Panel: menambah, menghapus, meng
 
 Di Statamic, **user juga file** — disimpan di folder `users/` (mis. `users/nama@email.com.yaml`). Di produksi, folder ini ada di **volume persisten** (lihat [07](07-deployment-dokploy.md)), jadi akun tidak hilang saat redeploy.
 
+> Menambah/menghapus user **tidak menyentuh database** — hanya menulis/menghapus file. Penjelasan lengkap soal database (dan opsi SQLite) ada di [09 — Database & Penyimpanan](09-database-dan-penyimpanan.md).
+
 ---
 
 ## Konsep: User, Role, Group

@@ -8,3 +8,7 @@ preferences:
       view: list
     pages:
       view: tree
+    articles:
+      view: list
+    gallery:
+      view: list

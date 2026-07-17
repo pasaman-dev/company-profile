@@ -2,141 +2,149 @@ title: 'Konfigurasi Web'
 tabs:
   general:
     display: Umum
-    fields:
+    sections:
       -
-        handle: site_name
-        field:
-          type: text
-          display: 'Nama Situs'
-          instructions: 'Nama komunitas / perusahaan. Dipakai di navbar dan title browser.'
-          validate:
-            - required
-      -
-        handle: brand_prefix
-        field:
-          type: text
-          display: 'Brand — Bagian Putih'
-          instructions: 'Bagian nama yang tampil putih di navbar. Contoh: Pasaman'
-      -
-        handle: brand_suffix
-        field:
-          type: text
-          display: 'Brand — Bagian Hijau'
-          instructions: 'Bagian nama yang tampil hijau di navbar. Contoh: Dev'
-      -
-        handle: tagline
-        field:
-          type: text
-          display: Tagline
-          instructions: 'Kalimat pendek pendamping nama, tampil di footer.'
-      -
-        handle: site_description
-        field:
-          type: textarea
-          display: 'Deskripsi Situs'
-          instructions: 'Meta description default untuk SEO (maks ~160 karakter).'
-          character_limit: 200
-      -
-        handle: logo
-        field:
-          type: assets
-          display: Logo
-          container: assets
-          folder: brand
-          max_files: 1
-          mode: grid
-      -
-        handle: favicon
-        field:
-          type: assets
-          display: Favicon
-          container: assets
-          folder: brand
-          max_files: 1
-          mode: grid
-      -
-        handle: og_image
-        field:
-          type: assets
-          display: 'Gambar Share (OG Image)'
-          instructions: 'Gambar yang muncul saat link dibagikan ke sosial media. Ideal 1200x630.'
-          container: assets
-          folder: brand
-          max_files: 1
-          mode: grid
+        fields:
+          -
+            handle: site_name
+            field:
+              type: text
+              display: 'Nama Situs'
+              instructions: 'Nama komunitas / perusahaan. Dipakai di navbar dan title browser.'
+              validate:
+                - required
+          -
+            handle: brand_prefix
+            field:
+              type: text
+              display: 'Brand — Bagian Putih'
+              instructions: 'Bagian nama yang tampil putih di navbar. Contoh: Pasaman'
+          -
+            handle: brand_suffix
+            field:
+              type: text
+              display: 'Brand — Bagian Hijau'
+              instructions: 'Bagian nama yang tampil hijau di navbar. Contoh: Dev'
+          -
+            handle: tagline
+            field:
+              type: text
+              display: Tagline
+              instructions: 'Kalimat pendek pendamping nama, tampil di footer.'
+          -
+            handle: site_description
+            field:
+              type: textarea
+              display: 'Deskripsi Situs'
+              instructions: 'Meta description default untuk SEO (maks ~160 karakter).'
+              character_limit: 200
+          -
+            handle: logo
+            field:
+              type: assets
+              display: Logo
+              container: assets
+              folder: brand
+              max_files: 1
+              mode: grid
+          -
+            handle: favicon
+            field:
+              type: assets
+              display: Favicon
+              container: assets
+              folder: brand
+              max_files: 1
+              mode: grid
+          -
+            handle: og_image
+            field:
+              type: assets
+              display: 'Gambar Share (OG Image)'
+              instructions: 'Gambar yang muncul saat link dibagikan ke sosial media. Ideal 1200x630.'
+              container: assets
+              folder: brand
+              max_files: 1
+              mode: grid
   contact:
     display: Kontak
-    fields:
+    sections:
       -
-        handle: email
-        field:
-          type: text
-          display: Email
-          input_type: email
-      -
-        handle: phone
-        field:
-          type: text
-          display: 'Telepon / WhatsApp'
-          instructions: 'Format internasional, contoh: +6281234567890'
-      -
-        handle: whatsapp_url
-        field:
-          type: text
-          display: 'Link Grup WhatsApp'
-          instructions: 'Link undangan grup, dipakai tombol "Gabung Komunitas".'
-      -
-        handle: address
-        field:
-          type: textarea
-          display: Alamat
-      -
-        handle: maps_url
-        field:
-          type: text
-          display: 'Link Google Maps'
+        fields:
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              input_type: email
+          -
+            handle: phone
+            field:
+              type: text
+              display: 'Telepon / WhatsApp'
+              instructions: 'Format internasional, contoh: +6281234567890'
+          -
+            handle: whatsapp_url
+            field:
+              type: text
+              display: 'Link Grup WhatsApp'
+              instructions: 'Link undangan grup, dipakai tombol "Gabung Komunitas".'
+          -
+            handle: address
+            field:
+              type: textarea
+              display: Alamat
+          -
+            handle: maps_url
+            field:
+              type: text
+              display: 'Link Google Maps'
   social:
     display: 'Sosial Media'
-    fields:
+    sections:
       -
-        handle: socials
-        field:
-          type: grid
-          display: 'Sosial Media'
-          instructions: 'Tambahkan akun sosial media. Kode ditampilkan sebagai ikon lingkaran di footer.'
-          mode: table
-          add_row: 'Tambah Sosial Media'
-          fields:
-            -
-              handle: name
-              field:
-                type: text
-                display: Nama
-                instructions: 'Contoh: Instagram'
-                validate:
-                  - required
-            -
-              handle: label
-              field:
-                type: text
-                display: Kode
-                instructions: '2 huruf, contoh: IG'
-                character_limit: 3
-                validate:
-                  - required
-            -
-              handle: url
-              field:
-                type: text
-                display: URL
-                validate:
-                  - required
+        fields:
+          -
+            handle: socials
+            field:
+              type: grid
+              display: 'Sosial Media'
+              instructions: 'Tambahkan akun sosial media. Kode ditampilkan sebagai ikon lingkaran di footer.'
+              mode: table
+              add_row: 'Tambah Sosial Media'
+              fields:
+                -
+                  handle: name
+                  field:
+                    type: text
+                    display: Nama
+                    instructions: 'Contoh: Instagram'
+                    validate:
+                      - required
+                -
+                  handle: label
+                  field:
+                    type: text
+                    display: Kode
+                    instructions: '2 huruf, contoh: IG'
+                    character_limit: 3
+                    validate:
+                      - required
+                -
+                  handle: url
+                  field:
+                    type: text
+                    display: URL
+                    validate:
+                      - required
   footer:
     display: Footer
-    fields:
+    sections:
       -
-        handle: copyright
-        field:
-          type: text
-          display: 'Teks Copyright'
-          instructions: 'Tahun otomatis ditambahkan di depan. Contoh: Pasaman Dev. Semua hak dilindungi.'
+        fields:
+          -
+            handle: copyright
+            field:
+              type: text
+              display: 'Teks Copyright'
+              instructions: 'Tahun otomatis ditambahkan di depan. Contoh: Pasaman Dev. Semua hak dilindungi.'

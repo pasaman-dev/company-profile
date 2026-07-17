@@ -14,6 +14,7 @@ Dokumentasi lengkap website company profile **Pasaman Dev** yang dibangun dengan
 | [06 — Penyimpanan Gambar R2](06-penyimpanan-gambar-r2.md) | **Cloudflare R2 untuk gambar + best practice keamanan** |
 | [07 — Deployment Dokploy](07-deployment-dokploy.md) | Deploy produksi, volume persisten, konten via admin, R2 |
 | [08 — Manajemen User](08-manajemen-user.md) | **Menambah/hapus user, role, reset password, 2FA** |
+| [09 — Database & Penyimpanan](09-database-dan-penyimpanan.md) | **Apakah ada database? Bisakah pakai SQLite? (Eloquent Driver)** |
 
 ## Ringkasan singkat
 
