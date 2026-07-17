@@ -77,7 +77,12 @@ COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 
-RUN php artisan package:discover --ansi
+# Composer runs both of these via post-autoload-dump, but the vendor stage
+# installs with --no-scripts (package:discover needs GD). statamic:install
+# publishes the CP assets to public/vendor/statamic — without it every /cp
+# route 500s on a missing Vite manifest.
+RUN php artisan package:discover --ansi \
+    && php artisan statamic:install --ansi
 
 # Flat-file CMS: these directories are written to at runtime.
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
