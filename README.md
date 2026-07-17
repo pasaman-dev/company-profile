@@ -1,10 +1,12 @@
 # Pasaman Dev — Website Company Profile
 
-Website company profile komunitas **Pasaman Dev** yang dibangun dengan [Statamic 6](https://statamic.com) (flat-file CMS di atas Laravel 13). Seluruh konten — konfigurasi web, project, artikel, dan galeri — dikelola lewat Control Panel tanpa perlu menyentuh kode, dan disimpan sebagai file di folder `content/` (bukan database).
+Website company profile komunitas **Pasaman Dev** yang dibangun dengan [Statamic 6](https://statamic.com) (flat-file CMS di atas Laravel 13). Seluruh konten — konfigurasi web, project, artikel, dan galeri — dikelola lewat Control Panel tanpa perlu menyentuh kode.
+
+Penyimpanan: **teks konten** sebagai file di `content/` (volume persisten di produksi), **gambar** di **Cloudflare R2**, **kode** di Git. Konten dikelola **hanya lewat Control Panel**, bukan lewat commit — lihat [Kebijakan Operasional Konten](docs/05-operasional-konten.md).
 
 Frontend memakai desain dari template landing page yang sudah disiapkan (tema gelap dengan aksen hijau/oranye dan motif atap gonjong Minangkabau), diekstrak menjadi Antlers view + satu file CSS design-system.
 
-> 📚 **Dokumentasi lengkap ada di folder [`docs/`](docs/README.md)** — arsitektur, model konten, pengembangan, pengelolaan konten dengan Git, dan deployment.
+> 📚 **Dokumentasi lengkap ada di folder [`docs/`](docs/README.md)** — arsitektur, model konten, pengembangan, kebijakan konten, penyimpanan gambar R2, deployment Dokploy, dan manajemen user.
 
 ---
 
