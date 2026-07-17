@@ -88,6 +88,12 @@ RUN php artisan package:discover --ansi \
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache content users public/assets
 
+# The apk package owns /var/lib/nginx as the `nginx` user, but nginx.conf runs
+# workers as www-data. nginx spools request bodies larger than
+# client_body_buffer_size to /var/lib/nginx/tmp, so without this every upload
+# over ~16KB dies at the proxy with "Permission denied" before reaching PHP.
+RUN chown -R www-data:www-data /var/lib/nginx
+
 EXPOSE 80
 
 ENTRYPOINT ["entrypoint"]

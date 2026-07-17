@@ -154,6 +154,8 @@ RUN php artisan package:discover --ansi \
 
 Konfigurasi pendukung di `docker/`: `nginx.conf`, `php.ini`, `supervisord.conf`, `entrypoint.sh`. Entry-point menjalankan perintah cache sebagai user `www-data` agar tetap writable.
 
+`nginx.conf` menjalankan worker sebagai `www-data`, tapi paket apk memberikan `/var/lib/nginx` ke user `nginx`. Karena itu Dockerfile meng-`chown` direktori tersebut ke `www-data`. **Tanpa itu, upload file di CP gagal 500** — nginx menulis request body yang lebih besar dari `client_body_buffer_size` (~16KB) ke `/var/lib/nginx/tmp` dan kena `Permission denied`. Gejalanya menipu: file kecil tetap berhasil karena tidak pernah menyentuh disk, dan tidak ada stack trace PHP karena request-nya berhenti di nginx sebelum sampai Laravel.
+
 ---
 
 ## Checklist produksi
@@ -165,6 +167,7 @@ Konfigurasi pendukung di `docker/`: `nginx.conf`, `php.ini`, `supervisord.conf`,
 - [ ] 4 volume persisten terpasang, semuanya bertipe **Volume Mount**
 - [ ] Env R2 lengkap + bucket versioning aktif
 - [ ] `/cp/auth/login` membuka halaman login (bukan 500)
+- [ ] Upload gambar via CP berhasil (uji dengan file > 1MB, bukan cuma yang kecil)
 - [ ] Backup harian volume terjadwal & **diuji restore**
 - [ ] User admin dibuat, logo di-upload ulang lewat CP
 - [ ] Data contoh dihapus, konten asli diisi lewat CP
