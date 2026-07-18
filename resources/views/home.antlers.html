@@ -33,7 +33,7 @@
         <p class="pd-hero__text pd-fade-3">{{ hero_description }}</p>
 
         <div class="pd-hero__actions pd-fade-4">
-            <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url ?? '#join' }}">{{ hero_primary_label }}</a>
+            <a class="pd-btn pd-btn--primary" href="{{ settings:join_url ?? settings:whatsapp_url ?? '#join' }}">{{ hero_primary_label }}</a>
             <a class="pd-btn pd-btn--ghost" href="#projects">{{ hero_secondary_label }}</a>
         </div>
     </div>
@@ -164,13 +164,26 @@
 
     {{ if partner_logos }}
         <div class="pd-logos">
-            <span class="pd-logos__title">TELAH DIDUKUNG OLEH</span>
+            <span class="pd-logos__title">{{ partner_logos_heading ?? 'BEKERJA SAMA DENGAN' }}</span>
             <div class="pd-logos__grid">
                 {{ partner_logos }}
                     <div class="pd-logos__item">
                         <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
                     </div>
                 {{ /partner_logos }}
+            </div>
+        </div>
+    {{ /if }}
+
+    {{ if supporter_logos }}
+        <div class="pd-logos">
+            <span class="pd-logos__title">{{ supporter_logos_heading ?? 'DIDUKUNG OLEH' }}</span>
+            <div class="pd-logos__grid">
+                {{ supporter_logos }}
+                    <div class="pd-logos__item">
+                        <img src="{{ url }}" alt="{{ alt ?? title }}" loading="lazy">
+                    </div>
+                {{ /supporter_logos }}
             </div>
         </div>
     {{ /if }}
@@ -182,11 +195,11 @@
         <div class="pd-cta__inner">
             <h2 class="pd-h2">{{ cta_heading }}</h2>
             <p>{{ cta_description }}</p>
-            {{ if settings:whatsapp_url }}
-                <a class="pd-btn pd-btn--primary" href="{{ settings:whatsapp_url }}" target="_blank" rel="noopener">{{ cta_button_label }}</a>
+            {{ if settings:join_url || settings:whatsapp_url }}
+                <a class="pd-btn pd-btn--primary" href="{{ settings:join_url ?? settings:whatsapp_url }}" target="_blank" rel="noopener">{{ cta_button_label }}</a>
             {{ else }}
                 <a class="pd-btn pd-btn--primary" href="mailto:{{ settings:email }}">{{ cta_button_label }}</a>
-                <p class="pd-cta__note">*Link grup belum diisi di Konfigurasi Web</p>
+                <p class="pd-cta__note">*Link tombol gabung belum diisi di Konfigurasi Web</p>
             {{ /if }}
         </div>
     </div>

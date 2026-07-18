@@ -47,8 +47,10 @@ Referensi kode: `config/filesystems.php` (disk `assets` & `r2`).
 ### 3. Aktifkan akses publik untuk gambar
 Gambar harus bisa diakses pengunjung. Dua pilihan:
 
-- **Custom domain (disarankan)** — di **R2 → Settings → Custom Domains**, hubungkan mis. `media.pasamandev.id`. URL gambar jadi rapi & di-cache CDN.
-- **R2.dev public URL** — aktifkan "Public Development URL" (cepat untuk uji coba; untuk produksi lebih baik custom domain).
+- **Custom domain (WAJIB untuk produksi)** — di **R2 → Settings → Custom Domains**, hubungkan mis. `media.pasamandev.id`. URL gambar jadi rapi, di-cache CDN, dan **tanpa rate limit**.
+- **R2.dev public URL** (`https://pub-xxxx.r2.dev`) — **hanya untuk pengembangan.**
+
+> ⚠️ **Jangan pakai URL `r2.dev` di produksi.** Cloudflare **membatasi (rate-limit)** akses lewat subdomain `r2.dev` dan menyatakannya khusus untuk development. Gejalanya persis seperti "gambar tidak muncul / pecah di HP": pengunjung yang membuka halaman pertama kali (cache kosong) memuat banyak gambar sekaligus, sebagian request kena limit dan gagal — sementara di desktop yang gambarnya sudah ter-cache, semuanya tampak normal. **Solusinya custom domain**, bukan pengaturan di kode. Setelah custom domain aktif, ganti `R2_URL` ke domain tersebut lalu redeploy.
 
 ### 4. Isi environment variable
 Di **Dokploy** (produksi) atau `.env` (uji lokal):

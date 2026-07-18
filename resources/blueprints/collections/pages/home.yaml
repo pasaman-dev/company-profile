@@ -146,10 +146,34 @@ tabs:
                       green: Hijau
                       orange: Oranye
           -
+            handle: partner_logos_heading
+            field:
+              type: text
+              display: 'Judul Grup Logo 1'
+              instructions: 'Judul di atas grup logo pertama. Contoh: Bekerja Sama Dengan.'
+              default: 'BEKERJA SAMA DENGAN'
+          -
             handle: partner_logos
             field:
               type: assets
-              display: 'Logo Partner'
+              display: 'Logo — Bekerja Sama Dengan'
+              instructions: 'Logo mitra kerjasama. Diatur di grup pertama.'
+              container: assets
+              folder: partners
+              mode: grid
+          -
+            handle: supporter_logos_heading
+            field:
+              type: text
+              display: 'Judul Grup Logo 2'
+              instructions: 'Judul di atas grup logo kedua. Contoh: Didukung Oleh.'
+              default: 'DIDUKUNG OLEH'
+          -
+            handle: supporter_logos
+            field:
+              type: assets
+              display: 'Logo — Didukung Oleh'
+              instructions: 'Logo pihak pendukung. Diatur di grup kedua.'
               container: assets
               folder: partners
               mode: grid

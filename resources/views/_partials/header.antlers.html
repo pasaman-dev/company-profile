@@ -23,7 +23,7 @@
             <a class="pd-nav__link" href="/artikel" {{ if segment_1 == 'artikel' }}aria-current="page"{{ /if }}>Blog</a>
             <a class="pd-nav__link" href="/galeri" {{ if segment_1 == 'galeri' }}aria-current="page"{{ /if }}>Galeri</a>
             <a class="pd-nav__link" href="/#partner">Kerjasama</a>
-            <a class="pd-btn pd-btn--primary pd-btn--nav" href="{{ settings:whatsapp_url ?? '/#join' }}">Gabung</a>
+            <a class="pd-btn pd-btn--primary pd-btn--nav" href="{{ settings:join_url ?? settings:whatsapp_url ?? '/#join' }}">Gabung</a>
         </nav>
     </div>
 </header>

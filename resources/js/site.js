@@ -76,6 +76,53 @@ function initNav() {
     });
 }
 
+// Click a gallery photo to view it enlarged in an overlay.
+function initLightbox() {
+    const triggers = document.querySelectorAll('[data-lightbox]');
+    if (!triggers.length) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'pd-lightbox';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML =
+        '<button type="button" class="pd-lightbox__close" aria-label="Tutup">&times;</button>' +
+        '<figure class="pd-lightbox__figure"><img alt=""><figcaption></figcaption></figure>';
+    document.body.appendChild(overlay);
+
+    const image = overlay.querySelector('img');
+    const caption = overlay.querySelector('figcaption');
+
+    const open = (src, alt) => {
+        image.src = src;
+        image.alt = alt;
+        caption.textContent = alt;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('pd-no-scroll');
+    };
+
+    const close = () => {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('pd-no-scroll');
+        image.src = '';
+    };
+
+    triggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+            const img = trigger.querySelector('img');
+            if (img) open(img.currentSrc || img.src, img.alt);
+        });
+    });
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.closest('.pd-lightbox__close')) close();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+}
+
 // Smooth-scroll in-page anchors, offset for the sticky header.
 function initAnchors() {
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -98,5 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initReveal();
     initSpotlight();
     initNav();
+    initLightbox();
     initAnchors();
 });

@@ -1,6 +1,8 @@
 <div class="pd-gallery__item {{ if feature }}pd-gallery__item--feature{{ /if }} pd-reveal" style="--reveal-delay: {{ delay ?? '0' }}s;">
     {{ if image }}
-        <img src="{{ image:url }}" alt="{{ title }}" loading="lazy">
+        <button type="button" class="pd-gallery__trigger" data-lightbox aria-label="Perbesar foto: {{ title }}">
+            <img src="{{ image:url }}" alt="{{ title }}" loading="lazy">
+        </button>
     {{ else }}
         <div class="pd-mesh"></div>
         <span class="pd-gallery__empty">Belum ada foto</span>

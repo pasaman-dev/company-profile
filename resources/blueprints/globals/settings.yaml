@@ -90,6 +90,12 @@ tabs:
               display: 'Link Grup WhatsApp'
               instructions: 'Link undangan grup, dipakai tombol "Gabung Komunitas".'
           -
+            handle: join_url
+            field:
+              type: text
+              display: 'Link Tombol Gabung / Kontribusi'
+              instructions: 'Tujuan tombol "Gabung" & "Kontribusi" (navbar, hero, CTA). Boleh link apa saja: form pendaftaran, Linktree, grup WA, dll. Kosongkan untuk memakai Link Grup WhatsApp di atas.'
+          -
             handle: address
             field:
               type: textarea
