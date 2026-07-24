@@ -50,7 +50,14 @@ Gambar harus bisa diakses pengunjung. Dua pilihan:
 - **Custom domain (WAJIB untuk produksi)** — di **R2 → Settings → Custom Domains**, hubungkan mis. `media.pasamandev.id`. URL gambar jadi rapi, di-cache CDN, dan **tanpa rate limit**.
 - **R2.dev public URL** (`https://pub-xxxx.r2.dev`) — **hanya untuk pengembangan.**
 
-> ⚠️ **Jangan pakai URL `r2.dev` di produksi.** Cloudflare **membatasi (rate-limit)** akses lewat subdomain `r2.dev` dan menyatakannya khusus untuk development. Gejalanya persis seperti "gambar tidak muncul / pecah di HP": pengunjung yang membuka halaman pertama kali (cache kosong) memuat banyak gambar sekaligus, sebagian request kena limit dan gagal — sementara di desktop yang gambarnya sudah ter-cache, semuanya tampak normal. **Solusinya custom domain**, bukan pengaturan di kode. Setelah custom domain aktif, ganti `R2_URL` ke domain tersebut lalu redeploy.
+> ⚠️ **Jangan pakai URL `r2.dev` di produksi.** Dua alasan:
+>
+> 1. **Sertifikat / trust di sebagian perangkat.** Gejala nyata di lapangan: gambar tidak muncul di HP dengan error `net::ERR_CERT_AUTHORITY_INVALID`. Sertifikat `*.r2.dev` sendiri valid (Let's Encrypt) dan dipercaya perangkat yang up-to-date — tapi perangkat lama atau HP dengan VPN / aplikasi keamanan / ad-blocker yang menyadap HTTPS bisa menolak rantai sertifikatnya. Karena domainnya milik Cloudflare (bukan Anda), Anda tidak bisa mengendalikan hal ini.
+> 2. **Rate limit.** Cloudflare juga membatasi akses lewat `r2.dev` dan menyatakannya khusus development.
+>
+> **Solusinya custom domain** — bukan pengaturan di kode. Domain di bawah Cloudflare mendapat sertifikat yang dipercaya luas dan berada di domain Anda sendiri. Setelah custom domain aktif, ganti `R2_URL` ke domain tersebut lalu redeploy.
+>
+> **Cek cepat sebelum setup domain** (untuk memastikan ini memang soal perangkat): buka salah satu URL gambar `r2.dev` langsung di HP yang bermasalah. Kalau muncul peringatan sertifikat, coba (a) matikan VPN/ad-blocker/aplikasi keamanan, (b) buka di jaringan lain (data seluler vs wifi), (c) periksa jam & tanggal HP sudah otomatis/benar. Ini mempersempit apakah penyebabnya perangkat tertentu atau menyeluruh.
 
 ### 4. Isi environment variable
 Di **Dokploy** (produksi) atau `.env` (uji lokal):
