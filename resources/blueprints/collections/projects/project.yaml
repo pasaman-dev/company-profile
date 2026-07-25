@@ -62,9 +62,35 @@ tabs:
             handle: features
             field:
               type: list
-              display: 'Fitur yang Direncanakan'
+              display: Fitur
               instructions: 'Satu baris per fitur.'
               add_button: 'Tambah Fitur'
+          -
+            handle: tech_stack
+            field:
+              type: grid
+              display: 'Tech Stack'
+              instructions: 'Opsional. Teknologi yang dipakai di project ini. Logo boleh dikosongkan — kalau kosong, hanya nama yang tampil.'
+              mode: table
+              add_row: 'Tambah Teknologi'
+              fields:
+                -
+                  handle: name
+                  field:
+                    type: text
+                    display: Nama
+                    instructions: 'Contoh: Laravel'
+                    validate:
+                      - required
+                -
+                  handle: logo
+                  field:
+                    type: assets
+                    display: Logo
+                    container: assets
+                    folder: tech
+                    max_files: 1
+                    mode: grid
   meta:
     display: Detail
     sections:

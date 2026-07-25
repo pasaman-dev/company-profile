@@ -26,13 +26,27 @@
             <div class="pd-prose">{{ content }}</div>
 
             {{ if features }}
-                <h2>Fitur yang Direncanakan</h2>
+                <h2>Fitur</h2>
                 {{ features }}
                     <div class="pd-feature">
                         <span class="pd-feature__dot"></span>
                         <span class="pd-feature__text">{{ value }}</span>
                     </div>
                 {{ /features }}
+            {{ /if }}
+
+            {{ if tech_stack }}
+                <h2>Tech Stack</h2>
+                <div class="pd-stack">
+                    {{ tech_stack }}
+                        <div class="pd-stack__item">
+                            {{ if logo }}
+                                <img class="pd-stack__logo" src="{{ logo:url }}" alt="{{ name }}" loading="lazy">
+                            {{ /if }}
+                            <span class="pd-stack__name">{{ name }}</span>
+                        </div>
+                    {{ /tech_stack }}
+                </div>
             {{ /if }}
         </div>
 

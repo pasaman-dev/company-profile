@@ -836,6 +836,36 @@ body.pd-no-scroll { overflow: hidden; }
 }
 .pd-feature__text { font-size: 14.5px; line-height: 1.6; color: var(--dim); }
 
+.pd-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+.pd-stack__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  transition: border-color 0.3s ease;
+}
+.pd-stack__item:hover { border-color: var(--green-line); }
+.pd-stack__logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.pd-stack__name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+}
+
 .pd-info {
   background: var(--surface);
   border: 1px solid var(--line);
